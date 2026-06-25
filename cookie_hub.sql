@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25/06/2026 às 20:19
+-- Tempo de geração: 25/06/2026 às 20:36
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -51,7 +51,8 @@ CREATE TABLE `receita` (
   `titulo` text NOT NULL,
   `ingredientes` text NOT NULL,
   `infosNutricionais` text NOT NULL,
-  `quantidadeIngredientes` text NOT NULL
+  `quantidadeIngredientes` text NOT NULL,
+  `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
