@@ -6,4 +6,5 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 
-$routes->get('api/buscar/(:segment)', 'Api::buscar/$1');
+$routes->get('api/ingrediente/(:any)', 'Api::ingrediente/$1');
+$routes->get('api/testeTraducao', 'Api::testeTraducao');
