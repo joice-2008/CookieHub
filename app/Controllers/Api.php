@@ -3,75 +3,72 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class Api extends ResourceController
 {
-    private $apiKey = 'e853d84903274ef19d19aa48b6bc1fcd';
+    private $chaveApi = 'e853d84903274ef19d19aa48b6bc1fcd';
 
-    public function ingrediente($nome)
+    public function ingrediente($nomeIngrediente)
     {
-        // 1. Buscar ID do ingrediente
-        $urlSearch = "https://api.spoonacular.com/food/ingredients/search?query=" 
-                    . urlencode($nome) 
-                    . "&apiKey=" . $this->apiKey;
+        $tradutor = new GoogleTranslate();
+        $tradutor->setSource('pt');
+        $tradutor->setTarget('en');
 
-        $response = file_get_contents($urlSearch);
-        $data = json_decode($response, true);
+        $ingredienteEmIngles = $tradutor->translate($nomeIngrediente);
 
-        if (empty($data['results'])) {
+        $urlBusca = "https://api.spoonacular.com/food/ingredients/search?query="
+            . urlencode($ingredienteEmIngles)
+            . "&apiKey=" . $this->chaveApi;
+
+        $respostaBusca = @file_get_contents($urlBusca);
+        $dadosBusca = json_decode($respostaBusca, true);
+
+        if (empty($dadosBusca['results'])) {
             return $this->respond([
                 'erro' => 'Ingrediente não encontrado'
             ]);
         }
 
-        $id = $data['results'][0]['id'];
+        $idIngrediente = $dadosBusca['results'][0]['id'];
 
-        // 2. Buscar nutrientes
-        $urlInfo = "https://api.spoonacular.com/food/ingredients/" 
-                 . $id 
-                 . "/information?amount=100&unit=grams&apiKey=" 
-                 . $this->apiKey;
+        $urlInformacoes = "https://api.spoonacular.com/food/ingredients/"
+            . $idIngrediente
+            . "/information?amount=100&unit=grams&apiKey="
+            . $this->chaveApi;
 
-        $responseInfo = file_get_contents($urlInfo);
-        $info = json_decode($responseInfo, true);
+        $respostaInformacoes = @file_get_contents($urlInformacoes);
+        $informacoes = json_decode($respostaInformacoes, true);
 
-        // 3. Extrair calorias
-        $calorias = 0;
-
-        foreach ($info['nutrition']['nutrients'] as $nutriente) {
-            if ($nutriente['name'] == 'Calories') {
-                $calorias = $nutriente['amount'];
-            }
+        if (!$informacoes || !isset($informacoes['nutrition']['nutrients'])) {
+            return $this->respond([
+                'erro' => 'Erro ao obter informações nutricionais'
+            ]);
         }
 
-        // 4. Retorno final
+        $calorias = $this->getNutriente($informacoes, 'Calories');
+
+        $tradutor->setSource('en');
+        $tradutor->setTarget('pt');
+
+        $ingredienteEmPortugues = $tradutor->translate($informacoes['name']);
+
         return $this->respond([
-            'ingrediente' => $nome,
+            'ingrediente' => $nomeIngrediente,
             'calorias_100g' => $calorias,
-            'proteina' => $this->getNutriente($info, 'Protein'),
-            'carboidratos' => $this->getNutriente($info, 'Carbohydrates'),
-            'gordura' => $this->getNutriente($info, 'Fat')
+            'proteina' => $this->getNutriente($informacoes, 'Protein'),
+            'carboidratos' => $this->getNutriente($informacoes, 'Carbohydrates'),
+            'gordura' => $this->getNutriente($informacoes, 'Fat')
         ]);
     }
 
-    private function getNutriente($info, $nome)
+    private function getNutriente($informacoes, $nomeNutriente)
     {
-        foreach ($info['nutrition']['nutrients'] as $nutriente) {
-            if ($nutriente['name'] == $nome) {
+        foreach ($informacoes['nutrition']['nutrients'] as $nutriente) {
+            if ($nutriente['name'] == $nomeNutriente) {
                 return $nutriente['amount'];
             }
         }
         return 0;
     }
-
-    public function testeTraducao()
-{
-    helper('translate');
-
-    $teste = traduzirLibre("batata doce", "pt", "en");
-
-    return $this->respond([
-        'resultado' => $teste
-    ]);
-}
 }
