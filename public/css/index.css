@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+
+@media (max-width: 500px) {
+
+    
+  .logoMaior {
+    display: flex;
+    font-size: 60px;
+    }
+
+    #titulo1{
+        color: #5b271e;
+        font-weight: bold;
+    }
+
+    #titulo2{
+        color: #b45309;
+        font-weight: bold;
+    }
+}
+
