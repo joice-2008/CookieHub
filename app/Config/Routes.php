@@ -12,3 +12,5 @@ $routes->get('api/testeTraducao', 'Api::testeTraducao');
 $routes->get('login', 'Auth::login');
 
 $routes->get('cadastro', 'Auth::cadastro');
+
+$routes->post('usuario/cadastrar', 'UsuarioController::cadastrar');
