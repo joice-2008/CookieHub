@@ -13,14 +13,14 @@
         <div>
             <p class="titulo">Faça login no CookieHub</p>
         </div>
-        <form action="" method="post">
+        <form action="<?= site_url('usuario/logar') ?>" method="post">
         <div class="mb-3">
             <label for="usuario" class="form-label">Usuario</label>
-            <input type="text" class="form-control" id="usuario">
+            <input type="text" class="form-control" id="usuario" name="usuario">
         </div>
         <div class="mb-3">
             <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senha">
+            <input type="password" class="form-control" id="senha" name="senha">
         </div>
         <div>
             <input type="submit" value="Entrar">

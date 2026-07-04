@@ -3,8 +3,8 @@
 namespace App\Controllers;
 use App\Models\UsuarioModel;
 class UsuarioController extends BaseController{
-    public function cadastrar(){
 
+    public function cadastrar(){
     $nomeCompleto = $this->request->getPost('nome');
     $login = $this->request->getPost('usuario');
     $senha = $this->request->getPost('senha');
@@ -18,4 +18,16 @@ class UsuarioController extends BaseController{
             echo "preencha todos os campos";
         }
     }
+
+    public function logar(){
+        $login = $this->request->getPost('usuario');
+        $senha = $this->request->getPost('senha');
+
+        if(!empty($login) && !empty($senha)){
+                echo "preenchido.";
+        }else{
+            echo "preencha todos os campos";
+        }
+    }
 }
+?>
