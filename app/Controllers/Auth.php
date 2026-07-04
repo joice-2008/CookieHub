@@ -12,6 +12,10 @@ class Auth extends BaseController
     {
         return view('cadastro');
     }
+
+    public function entrar(){
+        return view('feed');
+    }
 }
 
 ?>

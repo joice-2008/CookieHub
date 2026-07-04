@@ -16,3 +16,5 @@ $routes->get('cadastro', 'Auth::cadastro');
 $routes->post('usuario/cadastrar', 'UsuarioController::cadastrar');
 
 $routes->post('usuario/logar', 'UsuarioController::logar');
+
+$routes->get('entrar', 'Auth::entrar');
