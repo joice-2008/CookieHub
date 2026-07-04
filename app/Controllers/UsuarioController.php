@@ -5,15 +5,20 @@ use App\Models\UsuarioModel;
 class UsuarioController extends BaseController{
 
     public function cadastrar(){
-    $nomeCompleto = $this->request->getPost('nome');
-    $login = $this->request->getPost('usuario');
-    $senha = $this->request->getPost('senha');
-    $modelUsuario = new UsuarioModel();
+        $nomeCompleto = $this->request->getPost('nome');
+        $login = $this->request->getPost('usuario');
+        $senha = $this->request->getPost('senha');
+        $modelUsuario = new UsuarioModel();
 
-    if(!empty($nomeCompleto) && !empty($login) && !empty($senha)){
-        $dados = ['login' => $login,'nomeCompleto' => $nomeCompleto, 'senha' => password_hash($senha, PASSWORD_DEFAULT)];
-            $modelUsuario->insert($dados);
-            echo "cadastro realizado.";
+        if(!empty($nomeCompleto) && !empty($login) && !empty($senha)){
+            $usuarioRepetido = $modelUsuario->where('login', $login)->first();
+            if(!$usuarioRepetido){
+                $dados = ['login' => $login,'nomeCompleto' => $nomeCompleto, 'senha' => password_hash($senha, PASSWORD_DEFAULT)];
+                $modelUsuario->insert($dados);
+                echo "cadastro realizado.";
+            }else{
+                echo "Já existe um cadastro com o mesmo nome de usuário.";
+            }
         }else{
             echo "preencha todos os campos.";
         }
