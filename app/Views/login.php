@@ -15,7 +15,7 @@
         </div>
         <form action="<?= site_url('usuario/logar') ?>" method="post">
         <div class="mb-3">
-            <label for="usuario" class="form-label">Usuario</label>
+            <label for="usuario" class="form-label">Usuário</label>
             <input type="text" class="form-control" id="usuario" name="usuario">
         </div>
         <div class="mb-3">

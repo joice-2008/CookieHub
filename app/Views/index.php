@@ -9,11 +9,15 @@
 </head>
 <body>
     <div class="container">
+        <div class="icone">
+            <img src="<?= base_url('imagens/iconeIndex.png') ?>" alt="Logo">
+        </div>
         <div class='logoMaior'>
             <p id="titulo1">Cookie</p><p id="titulo2">Hub</p>
         </div>
         <div class="apresentacao">
-            <p class="textoApresentacao">O seu novo repositório de receitas <br>que une organização e praticidade em um só lugar!</p>
+            <p class="textoApresentacao">O seu novo repositório de receitas</p>
+            <p class="textoApresentacao">que une organização e praticidade em um só lugar!</p>
         </div>
         <div class="links">
             <div class="link">
