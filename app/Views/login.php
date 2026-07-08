@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>CookieHub</title>
+    <link rel="stylesheet" href="<?= base_url('css/login.css') ?>">
 </head>
 <body>
     <div class="container">
@@ -14,18 +14,17 @@
             <p class="titulo">Faça login no CookieHub</p>
         </div>
         <form action="<?= site_url('usuario/logar') ?>" method="post">
-        <div class="mb-3">
-            <label for="usuario" class="form-label">Usuário</label>
-            <input type="text" class="form-control" id="usuario" name="usuario">
-        </div>
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha">
+        <div>
+            <label for="usuario" class="label">Usuário</label>
+            <input type="text" class="campo" id="usuario" name="usuario">
         </div>
         <div>
-            <input type="submit" value="Entrar">
+            <label for="senha" class="label">Senha</label>
+            <input type="password" class="campo" id="senha" name="senha">
         </div>
-
+        <div>
+            <input type="submit" value="Entrar" id="botao">
+        </div>
         </form>
     </div>
     
