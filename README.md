@@ -5,13 +5,15 @@ CookieHub é um sistema criado para o gerenciamento e organização de receitas 
 # Passos para clonar o projeto para a máquina local
 1.Tendo o XAMPP instalado, deve-se criar uma pasta dentro de htdocs para armazenar o projeto
 2.É necessário clonar o repositório do GitHub para a pasta criada - comando: git clone "link do repositório"
-3.Executar o comando composer install para iniciar o projeto com o composer 
+3.Instalar o composer
+4.Executar o comando composer install para iniciar o projeto com o composer 
 
 
 # Acesso ao sistema no navegador web
 1.Inicie o Apache e o MySQL
 2.Importe o banco de dados do projeto no phpMyAdmin
-3.Acesse o projeto por http://localhost/CookieHub/public/ 
+3.Tire a pasta CookieHub de dentro da pasta criada e deixe-a no htdocs
+4.Acesse o projeto por http://localhost/CookieHub/public/ 
 
 
 # Tecnologias utilizadas
