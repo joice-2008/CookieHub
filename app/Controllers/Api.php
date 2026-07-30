@@ -62,6 +62,47 @@ class Api extends ResourceController
         ]);
     }
 
+    public function pesquisar($nomeIngrediente)
+{
+    $tradutor = new GoogleTranslate();
+
+    $tradutor->setSource('pt');
+    $tradutor->setTarget('en');
+
+    $ingredienteEmIngles = $tradutor->translate($nomeIngrediente);
+
+    $urlBusca =
+        "https://api.spoonacular.com/food/ingredients/search?query="
+        . urlencode($ingredienteEmIngles)
+        . "&number=10"
+        . "&apiKey="
+        . $this->chaveApi;
+
+    $respostaBusca = @file_get_contents($urlBusca);
+
+    $dadosBusca = json_decode($respostaBusca, true);
+
+    if (empty($dadosBusca['results'])) {
+        return $this->respond([]);
+    }
+
+    $resultados = [];
+
+    foreach ($dadosBusca['results'] as $ingrediente) {
+
+        $resultados[] = [
+
+            'id' => $ingrediente['id'],
+            'nome' => $ingrediente['name'],
+            'imagem' => $ingrediente['image']
+
+        ];
+
+    }
+
+    return $this->respond($resultados);
+}
+
     private function getNutriente($informacoes, $nomeNutriente)
     {
         foreach ($informacoes['nutrition']['nutrients'] as $nutriente) {
