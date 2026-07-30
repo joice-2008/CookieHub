@@ -15,12 +15,15 @@ class UsuarioController extends BaseController{
             if(!$usuarioRepetido){
                 $dados = ['login' => $login,'nomeCompleto' => $nomeCompleto, 'senha' => password_hash($senha, PASSWORD_DEFAULT)];
                 $modelUsuario->insert($dados);
-                echo "cadastro realizado.";
+                session()->set('usuarioCadastrado', true);
+                return redirect()->to('/login');
             }else{
-                echo "Já existe um cadastro com o mesmo nome de usuário.";
+                session()->setFlashdata('nomeRepetido', 'O nome de usuário já foi registrado em outro cadastro.');
+                return redirect()->to('/cadastro');
             }
         }else{
-            echo "preencha todos os campos.";
+            session()->setFlashdata('campoVazio', 'Preencha todos os campos.');
+            return redirect()->to('/cadastro');;
         }
     }
 
@@ -32,13 +35,16 @@ class UsuarioController extends BaseController{
 
         if(!empty($login) && !empty($senha)){
             if($usuario && password_verify($senha, $usuario['senha'])){
+                session()->set('usuarioLogado', true);
                 return redirect()->to('/entrar');
             }else{
-                echo "não encontrado.";
+                session()->setFlashdata('loginNaoEncontrado', 'Usuário ou senha incorretos.');
+                return redirect()->to('/login');
             }
                 
         }else{
-            echo "preencha todos os campos.";
+            session()->setFlashdata('campoVazio', 'Preencha todos os campos.');
+            return redirect()->to('/login');
         }
     }
 }

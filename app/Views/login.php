@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -53,7 +52,20 @@
             Ainda não tem conta?
             <a href="<?= base_url('cadastro') ?>" class="criar-conta">Criar conta</a>
         </p>
+        <?php if (session()->getFlashdata('loginNaoEncontrado')): ?>
+            <div class="mensagem-erro">
+                <p><?= session()->getFlashdata('loginNaoEncontrado') ?></p>
+            </div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('campoVazio')): ?>
+            <div class="mensagem-erro">
+                <p><?= session()->getFlashdata('campoVazio') ?></p>
+            </div>
+        <?php endif; ?>
     </div>
+
+    
  
     <script>
         const toggleSenha = document.getElementById('toggleSenha');
