@@ -24,3 +24,5 @@ $routes->get('entrar', 'Auth::entrar');
 $routes->get('/receita/cadastrar', 'ReceitaController::create');
 
 $routes->post('/receita/salvar', 'ReceitaController::store');
+
+$routes->get('logout', 'Auth::logout');

@@ -1,0 +1,233 @@
+
+
+
+
+@media (min-width: 600px){
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #5b271e;
+    height: 70px;
+    max-width: 100%;
+    padding: 0 40px;
+    border-bottom: 0.5px rgb(216, 216, 216) solid;
+    box-shadow: 0 2px 2px rgba(189, 188, 188, 0.2);
+    margin-bottom: 25px;
+}
+
+.logo{
+    margin-top: 15px;
+    display: flex;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: white;
+}
+
+.grupo2{
+    display: flex;
+}
+
+.menu-btn{
+    background-color: transparent !important;
+    border: 1px solid #733225 !important;
+    color: #f6ece3 !important;
+    padding: 8px 10px !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-btn svg{
+    width: 28px !important;
+    height: 28px !important;
+}
+
+.menu-btn.dropdown-toggle::after,
+button.dropdown-toggle.menu-btn::after{
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+}
+
+.menu-btn:hover {
+    background-color: #b45309 !important;
+    border-color: #b45309 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.menu-custom{
+    background-color: #5b271e;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    min-width: 240px;
+    text-align: right;
+    margin-top: 10px !important;
+}
+
+.menu-custom .dropdown-item{
+    color: #cbb3a4;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 18px;
+    gap: 15px;
+}
+
+.menu-custom .dropdown-item svg{
+    margin-left: 10px;
+}
+
+.menu-custom .dropdown-item:hover,
+.menu-custom .dropdown-item:focus{
+    background-color: #733225;
+    color: #f6ece3;
+}
+
+.grupoPesquisa{
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    width: 350px;
+    margin-right: 25px;
+}
+
+
+#pesquisa{
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: #f6ece3;
+    font-size: 14px;
+    width: 350px;
+}
+
+#pesquisa::placeholder{
+    color: rgba(246, 236, 227, 0.55);
+}
+
+}
+
+
+@media (max-width: 500px){
+    .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #5b271e;
+    height: 65px;
+    max-width: 100%;
+    padding: 0 20px;
+    border-bottom: 0.5px rgb(216, 216, 216) solid;
+    box-shadow: 0 2px 2px rgba(189, 188, 188, 0.2);
+    margin-bottom: 25px;
+}
+
+.logo{
+    margin-top: 15px;
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: white;
+}
+
+.grupo2{
+    display: flex;
+}
+
+.menu-btn{
+    background-color: transparent !important;
+    border: 1px solid #733225 !important;
+    color: #f6ece3 !important;
+    padding: 8px 8px !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-btn svg{
+    width: 25px !important;
+    height: 25px !important;
+}
+
+.menu-btn.dropdown-toggle::after,
+button.dropdown-toggle.menu-btn::after{
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+}
+
+.menu-btn:hover {
+    background-color: #b45309 !important;
+    border-color: #b45309 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.menu-custom{
+    background-color: #5b271e;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    min-width: 210px;
+    text-align: right;
+    margin-top: 10px !important;
+}
+
+.menu-custom .dropdown-item{
+    color: #cbb3a4;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    gap: 10px;
+}
+
+.menu-custom .dropdown-item svg{
+    margin-left: 10px;
+}
+
+.menu-custom .dropdown-item:hover,
+.menu-custom .dropdown-item:focus{
+    background-color: #733225;
+    color: #f6ece3;
+}
+
+.grupoPesquisa{
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    width: 220px;
+    margin-right: 25px;
+}
+
+
+#pesquisa{
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: #f6ece3;
+    font-size: 14px;
+    width: 350px;
+}
+
+#pesquisa::placeholder{
+    color: rgba(246, 236, 227, 0.55);
+}
+}

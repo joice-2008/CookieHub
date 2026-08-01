@@ -16,6 +16,10 @@ class Auth extends BaseController
     public function entrar(){
         return view('feed');
     }
+
+    public function logout(){
+        return view('index');
+    }
 }
 
 ?>

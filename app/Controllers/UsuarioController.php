@@ -47,5 +47,10 @@ class UsuarioController extends BaseController{
             return redirect()->to('/login');
         }
     }
+
+    public function logout(){
+        session()->destroy();
+        redirect(base_url('login'));
+    }
 }
 ?>
