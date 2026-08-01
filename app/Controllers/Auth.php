@@ -20,6 +20,12 @@ class Auth extends BaseController
     public function logout(){
         return view('index');
     }
+
+    public function feed(){
+        return view('feed');
+    }
+
 }
+
 
 ?>
