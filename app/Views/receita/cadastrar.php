@@ -176,11 +176,7 @@
             divResultados.innerHTML += `
             <div style="margin-bottom:10px;">
                 ${item.nome}
-                <button
-                    type="button"
-                    onclick="selecionarIngrediente(${item.id})">
-                    Selecionar
-                </button>
+                <button type="button" onclick="selecionarIngrediente(${item.id})"> Selecionar </button>
             </div>
             `;
         });
@@ -199,18 +195,10 @@
 
         const dadosNutricionais = await resposta.json();
 
-        ingredienteSelecionado.calorias =
-            dadosNutricionais.calorias;
-
-        ingredienteSelecionado.proteinas =
-            dadosNutricionais.proteinas;
-
-        ingredienteSelecionado.carboidratos =
-            dadosNutricionais.carboidratos;
-
-        ingredienteSelecionado.gorduras =
-            dadosNutricionais.gorduras;
-
+        ingredienteSelecionado.calorias = dadosNutricionais.calorias;
+        ingredienteSelecionado.proteinas = dadosNutricionais.proteinas;
+        ingredienteSelecionado.carboidratos =  dadosNutricionais.carboidratos;
+        ingredienteSelecionado.gorduras = dadosNutricionais.gorduras;
 
         document.getElementById("ingredienteSelecionadoTexto").innerHTML = "<strong>Ingrediente:</strong> "+ ingredienteSelecionado.nome +"<br><small>"+ ingredienteSelecionado.calorias +" kcal por 100 g</small>";
 
@@ -227,12 +215,11 @@
             return;
         }
 
-        if(ingrediente == "" || quantidade == ""){
-            alert("Preencha os dois campos.");
+        if(quantidade == ""){
+            alert("Informe a quantidade.");
             return;
         }
 
-        const inputs = document.getElementById("inputsOcultos");
 
         ingredientes.push({
 
@@ -267,44 +254,46 @@
     }
 
     function atualizarTela(){
-        const tabela = document.getElementById("listaIngredientes");
-        const inputs = document.getElementById("inputsOcultos");
 
+        atualizarTabelaIngredientes();
+        atualizarInputsOcultos();
+
+    }
+
+    function atualizarTabelaIngredientes(){
         tabela.innerHTML = "";
-        inputs.innerHTML = "";
-
         ingredientes.forEach(function(item, indice){
+
             tabela.innerHTML += `
                 <tr>
                     <td>${item.nome}</td>
                     <td>${item.quantidade} g</td>
                     <td>
-                        <button
-                            type="button"
-                            onclick="removerIngrediente(${indice})">
-                            Remover
-                        </button>
+                        <button type="button" onclick="removerIngrediente(${indice})"> Remover</button>
                     </td>
                 </tr>
             `;
-
-            <input type="hidden" name="ingredientes[${indice}][idApi]" value="${item.idApi}">
-
-            <input type="hidden" name="ingredientes[${indice}][nome]" value="${item.nome}">
-
-            <input type="hidden" name="ingredientes[${indice}][quantidade]" value="${item.quantidade}">
-
-            <input type="hidden" name="ingredientes[${indice}][calorias]" value="${item.calorias}">
-
-            <input type="hidden" name="ingredientes[${indice}][proteinas]" value="${item.proteinas}">
-
-            <input type="hidden" name="ingredientes[${indice}][carboidratos]" value="${item.carboidratos}">
-
-            <input type="hidden" name="ingredientes[${indice}][gorduras]" value="${item.gorduras}">
-
-            `;
-
         });
+
+    }
+
+    function atualizarInputsOcultos(){
+
+    inputsOcultos.innerHTML = "";
+
+    ingredientes.forEach(function(item, indice){
+
+        inputsOcultos.innerHTML += `
+            <input type="hidden" name="ingredientes[${indice}][idApi]" value="${item.idApi}">
+            <input type="hidden" name="ingredientes[${indice}][nome]" value="${item.nome}">
+            <input type="hidden" name="ingredientes[${indice}][quantidade]" value="${item.quantidade}">
+            <input type="hidden" name="ingredientes[${indice}][calorias]" value="${item.calorias}">
+            <input type="hidden" name="ingredientes[${indice}][proteinas]" value="${item.proteinas}">
+            <input type="hidden" name="ingredientes[${indice}][carboidratos]" value="${item.carboidratos}">
+            <input type="hidden" name="ingredientes[${indice}][gorduras]" value="${item.gorduras}">
+        `;
+
+    });
 
     }
 

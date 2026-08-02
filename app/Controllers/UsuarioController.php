@@ -35,7 +35,12 @@ class UsuarioController extends BaseController{
 
         if(!empty($login) && !empty($senha)){
             if($usuario && password_verify($senha, $usuario['senha'])){
-                session()->set('usuarioLogado', true);
+                session()->set([
+                    'usuarioLogado' => true,
+                    'idUsuario' => $usuario['idUsuario'],
+                    'nomeUsuario' => $usuario['nomeCompleto'],
+                    'loginUsuario' => $usuario['login']
+                ]);
                 return redirect()->to('/entrar');
             }else{
                 session()->setFlashdata('loginNaoEncontrado', 'Usuário ou senha incorretos.');
@@ -50,7 +55,7 @@ class UsuarioController extends BaseController{
 
     public function logout(){
         session()->destroy();
-        redirect(base_url('login'));
+        return redirect()->to('/login');
     }
 }
 ?>
