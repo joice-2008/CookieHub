@@ -11,6 +11,8 @@ $routes->get('api/testeTraducao', 'Api::testeTraducao');
 
 $routes->get('api/pesquisar/(:any)', 'Api::pesquisar/$1');
 
+$routes->get('api/informacoes/(:num)', 'Api::informacoes/$1');
+
 $routes->get('login', 'Auth::login');
 
 $routes->get('cadastro', 'Auth::cadastro');

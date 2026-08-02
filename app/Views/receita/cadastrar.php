@@ -28,23 +28,9 @@
 
         <br>
 
-        <div>
-            <label>Pesquisar ingrediente</label><br>
-            <input type="text" id="pesquisaIngrediente">
-            <button type="button"   id="btnPesquisar">>Pesquisar</button>
-        </div>
-
-        <br>
-
-        <div id="resultadoPesquisa">
-            <!-- Resultados da API aparecerão aqui -->
-        </div>
-
         <hr>
 
         <h3>Ingredientes adicionados</h3>
-
-        <label>Ingrediente</label>
 
     <label>Pesquisar ingrediente</label>
 
@@ -86,9 +72,6 @@
 
     <br><br>
 
-
-
-    </button>
 
         <table border="1" width="100%" id="tabelaIngredientes">
             <thead>
@@ -142,75 +125,148 @@
 
     </form>
 
+
+
     <script>
 
-    const btnAdicionar = document.getElementById("btnAdicionar");
-
-    const btnPesquisar = document.getElementById("btnPesquisar");
-
-    btnPesquisar.addEventListener(
-        "click",
-        pesquisarIngrediente
-    );
-
-    btnAdicionar.addEventListener("click", adicionarIngrediente);
     let ingredientes = [];
+    let ingredienteSelecionado = null;
+    let resultadosPesquisa = [];
+
+    const btnAdicionar = document.getElementById("btnAdicionar");
+    const btnPesquisar = document.getElementById("btnPesquisar");
+    const txtPesquisa = document.getElementById("pesquisaIngrediente");
+    const txtQuantidade = document.getElementById("quantidade");
+    const divResultados = document.getElementById("resultadoPesquisa");
+    const textoSelecionado = document.getElementById("ingredienteSelecionadoTexto");
+    const tabela = document.getElementById("listaIngredientes");
+    const inputsOcultos = document.getElementById("inputsOcultos");
+
+    btnPesquisar.addEventListener("click", pesquisarIngrediente);
+    btnAdicionar.addEventListener("click", adicionarIngrediente);
+   
 
     async function pesquisarIngrediente(){
-        const pesquisa = document
-        .getElementById("pesquisaIngrediente")
-        .value;
+        const pesquisa = document.getElementById("pesquisaIngrediente").value;
 
-    }
-    function adicionarIngrediente(){
-
-        const ingrediente =
-            document.getElementById("ingrediente").value;
-
-        const quantidade =
-            document.getElementById("quantidade").value;
-
-        if(ingrediente == "" || quantidade == ""){
-
-            alert("Preencha os dois campos.");
-
-            return;
-
+        if(pesquisa == ""){
+        alert("Digite um ingrediente.");
+        return;
         }
 
-    
+        const resposta = await fetch("<?= base_url('api/pesquisar/') ?>" + pesquisa);
+         
+        const resultados = await resposta.json();
+
+        resultadosPesquisa = resultados;
+
+        mostrarResultadosPesquisa(resultados);
+        
+    }
+
+    function mostrarResultadosPesquisa(resultados){
+        divResultados.innerHTML = "";
+
+        if(resultados.length == 0){
+        divResultados.innerHTML = "<p>Nenhum ingrediente encontrado.</p>";
+        return;
+        }
+
+        resultados.forEach(function(item){
+            divResultados.innerHTML += `
+            <div style="margin-bottom:10px;">
+                ${item.nome}
+                <button
+                    type="button"
+                    onclick="selecionarIngrediente(${item.id})">
+                    Selecionar
+                </button>
+            </div>
+            `;
+        });
+
+    }
+
+    async function selecionarIngrediente(id){
+        ingredienteSelecionado = resultadosPesquisa.find(function(item){
+            return item.id == id;
+        });
+
+        const resposta = await fetch(
+            "<?= base_url('api/informacoes/') ?>" +
+            ingredienteSelecionado.id
+        );
+
+        const dadosNutricionais = await resposta.json();
+
+        ingredienteSelecionado.calorias =
+            dadosNutricionais.calorias;
+
+        ingredienteSelecionado.proteinas =
+            dadosNutricionais.proteinas;
+
+        ingredienteSelecionado.carboidratos =
+            dadosNutricionais.carboidratos;
+
+        ingredienteSelecionado.gorduras =
+            dadosNutricionais.gorduras;
+
+
+        document.getElementById("ingredienteSelecionadoTexto").innerHTML = "<strong>Ingrediente:</strong> "+ ingredienteSelecionado.nome +"<br><small>"+ ingredienteSelecionado.calorias +" kcal por 100 g</small>";
+
+        document.getElementById("resultadoPesquisa").innerHTML = "";
+
+    }
+
+
+    function adicionarIngrediente(){
+        const quantidade = document.getElementById("quantidade").value;
+
+        if(ingredienteSelecionado == null){
+            alert("Selecione um ingrediente.");
+            return;
+        }
+
+        if(ingrediente == "" || quantidade == ""){
+            alert("Preencha os dois campos.");
+            return;
+        }
+
         const inputs = document.getElementById("inputsOcultos");
 
-    ingredientes.push({
+        ingredientes.push({
 
-        idApi: ingredienteSelecionado.id,
+            idApi: ingredienteSelecionado.id,
 
-        nome: ingredienteSelecionado.nome,
+            nome: ingredienteSelecionado.nome,
 
-        imagem: ingredienteSelecionado.imagem,
+            imagem: ingredienteSelecionado.imagem,
 
-        quantidade: quantidade,
+            quantidade: quantidade,
 
-        calorias: ingredienteSelecionado.calorias,
+            calorias: ingredienteSelecionado.calorias,
 
-        carboidratos: ingredienteSelecionado.carboidratos,
+            carboidratos: ingredienteSelecionado.carboidratos,
 
-        proteinas: ingredienteSelecionado.proteinas,
+            proteinas: ingredienteSelecionado.proteinas,
 
-        gorduras: ingredienteSelecionado.gorduras
+            gorduras: ingredienteSelecionado.gorduras
 
-    });
+        });
 
-    atualizarTela();
+        atualizarTela();
 
-    document.getElementById("ingrediente").value = "";
+        document.getElementById("quantidade").value = "";
 
-    document.getElementById("quantidade").value = "";
+        ingredienteSelecionado = null;
+
+        document.getElementById("ingredienteSelecionadoTexto").innerHTML ="Nenhum ingrediente selecionado.";
+
+        document.getElementById("pesquisaIngrediente").value = "";
 
     }
 
     function atualizarTela(){
-
         const tabela = document.getElementById("listaIngredientes");
         const inputs = document.getElementById("inputsOcultos");
 
@@ -218,42 +274,33 @@
         inputs.innerHTML = "";
 
         ingredientes.forEach(function(item, indice){
-
             tabela.innerHTML += `
-
                 <tr>
-
                     <td>${item.nome}</td>
-
                     <td>${item.quantidade} g</td>
-
                     <td>
-
                         <button
                             type="button"
                             onclick="removerIngrediente(${indice})">
-
                             Remover
-
                         </button>
-
                     </td>
-
                 </tr>
-
             `;
 
-            inputs.innerHTML += `
+            <input type="hidden" name="ingredientes[${indice}][idApi]" value="${item.idApi}">
 
-                <input
-                    type="hidden"
-                    name="ingredientes[]"
-                    value="${item.nome}">
+            <input type="hidden" name="ingredientes[${indice}][nome]" value="${item.nome}">
 
-                <input
-                    type="hidden"
-                    name="quantidades[]"
-                    value="${item.quantidade}">
+            <input type="hidden" name="ingredientes[${indice}][quantidade]" value="${item.quantidade}">
+
+            <input type="hidden" name="ingredientes[${indice}][calorias]" value="${item.calorias}">
+
+            <input type="hidden" name="ingredientes[${indice}][proteinas]" value="${item.proteinas}">
+
+            <input type="hidden" name="ingredientes[${indice}][carboidratos]" value="${item.carboidratos}">
+
+            <input type="hidden" name="ingredientes[${indice}][gorduras]" value="${item.gorduras}">
 
             `;
 
@@ -261,14 +308,11 @@
 
     }
 
-
     function removerIngrediente(indice){
-
         ingredientes.splice(indice,1);
-
         atualizarTela();
-
     }
+
     </script>
 </body>
 </html>

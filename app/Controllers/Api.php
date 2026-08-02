@@ -17,9 +17,7 @@ class Api extends ResourceController
 
         $ingredienteEmIngles = $tradutor->translate($nomeIngrediente);
 
-        $urlBusca = "https://api.spoonacular.com/food/ingredients/search?query="
-            . urlencode($ingredienteEmIngles)
-            . "&apiKey=" . $this->chaveApi;
+        $urlBusca = "https://api.spoonacular.com/food/ingredients/search?query=". urlencode($ingredienteEmIngles). "&apiKey=" . $this->chaveApi;
 
         $respostaBusca = @file_get_contents($urlBusca);
         $dadosBusca = json_decode($respostaBusca, true);
@@ -32,10 +30,7 @@ class Api extends ResourceController
 
         $idIngrediente = $dadosBusca['results'][0]['id'];
 
-        $urlInformacoes = "https://api.spoonacular.com/food/ingredients/"
-            . $idIngrediente
-            . "/information?amount=100&unit=grams&apiKey="
-            . $this->chaveApi;
+        $urlInformacoes = "https://api.spoonacular.com/food/ingredients/". $idIngrediente. "/information?amount=100&unit=grams&apiKey=". $this->chaveApi;
 
         $respostaInformacoes = @file_get_contents($urlInformacoes);
         $informacoes = json_decode($respostaInformacoes, true);
@@ -62,46 +57,62 @@ class Api extends ResourceController
         ]);
     }
 
-    public function pesquisar($nomeIngrediente)
-{
-    $tradutor = new GoogleTranslate();
+    public function pesquisar($nomeIngrediente){
+        $tradutor = new GoogleTranslate();
 
-    $tradutor->setSource('pt');
-    $tradutor->setTarget('en');
+        $tradutor->setSource('pt');
+        $tradutor->setTarget('en');
 
-    $ingredienteEmIngles = $tradutor->translate($nomeIngrediente);
+        $ingredienteEmIngles = $tradutor->translate($nomeIngrediente);
 
-    $urlBusca =
-        "https://api.spoonacular.com/food/ingredients/search?query="
-        . urlencode($ingredienteEmIngles)
-        . "&number=10"
-        . "&apiKey="
-        . $this->chaveApi;
+        $urlBusca ="https://api.spoonacular.com/food/ingredients/search?query=". urlencode($ingredienteEmIngles). "&number=5". "&apiKey=". $this->chaveApi;
 
-    $respostaBusca = @file_get_contents($urlBusca);
+        $respostaBusca = @file_get_contents($urlBusca);
 
-    $dadosBusca = json_decode($respostaBusca, true);
+        $dadosBusca = json_decode($respostaBusca, true);
 
-    if (empty($dadosBusca['results'])) {
-        return $this->respond([]);
+        if (empty($dadosBusca['results'])) {
+            return $this->respond([]);
+        }
+
+        $tradutor->setSource('en');
+        $tradutor->setTarget('pt');
+
+        $resultados = [];
+
+        foreach ($dadosBusca['results'] as $ingrediente) {
+
+            $nomeTraduzido = $tradutor->translate($ingrediente['name']);
+
+            $resultados[] = [
+
+                'id' => $ingrediente['id'],
+                'nome' => $nomeTraduzido,
+                'nomeOriginal' => $ingrediente['name'],
+
+            ];
+
+        }
+
+        return $this->respond($resultados);
     }
 
-    $resultados = [];
-
-    foreach ($dadosBusca['results'] as $ingrediente) {
-
-        $resultados[] = [
-
-            'id' => $ingrediente['id'],
-            'nome' => $ingrediente['name'],
-            'imagem' => $ingrediente['image']
-
-        ];
-
+    public function informacoes($idIngrediente){
+        $urlInformacoes = "https://api.spoonacular.com/food/ingredients/". $idIngrediente. "/information?amount=100&unit=grams&apiKey=". $this->chaveApi;
+        $respostaInformacoes = @file_get_contents($urlInformacoes);
+        $informacoes = json_decode($respostaInformacoes, true);
+        if (!$informacoes ||!isset($informacoes['nutrition']['nutrients'])) {
+        return $this->respond([ 'erro' => 'Ingrediente não encontrado.']);
+        }
+        return $this->respond([
+            'id' => $informacoes['id'],
+            'nome' => $informacoes['name'],
+            'calorias' => $this->getNutriente($informacoes,'Calories'),
+            'proteinas' => $this->getNutriente($informacoes,'Protein'),
+            'carboidratos' => $this->getNutriente($informacoes,'Carbohydrates'),
+            'gorduras' => $this->getNutriente($informacoes,'Fat')
+        ]);
     }
-
-    return $this->respond($resultados);
-}
 
     private function getNutriente($informacoes, $nomeNutriente)
     {
