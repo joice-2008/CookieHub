@@ -25,6 +25,10 @@ class Auth extends BaseController
         return view('feed');
     }
 
+    public function perfil(){
+        return view('visualizarCadUsuario');
+    }
+
 }
 
 

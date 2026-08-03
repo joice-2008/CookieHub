@@ -91,30 +91,6 @@ button.dropdown-toggle.menu-btn::after{
     color: #f6ece3;
 }
 
-.grupoPesquisa{
-    display: flex;
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
-    width: 350px;
-    margin-right: 25px;
-}
-
-
-#pesquisa{
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
-    padding: 8px 14px;
-    color: #f6ece3;
-    font-size: 14px;
-    width: 350px;
-}
-
-#pesquisa::placeholder{
-    color: rgba(246, 236, 227, 0.55);
-}
-
 }
 
 
@@ -207,27 +183,4 @@ button.dropdown-toggle.menu-btn::after{
     color: #f6ece3;
 }
 
-.grupoPesquisa{
-    display: flex;
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
-    width: 220px;
-    margin-right: 25px;
-}
-
-
-#pesquisa{
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
-    padding: 8px 14px;
-    color: #f6ece3;
-    font-size: 14px;
-    width: 350px;
-}
-
-#pesquisa::placeholder{
-    color: rgba(246, 236, 227, 0.55);
-}
 }
