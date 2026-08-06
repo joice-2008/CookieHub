@@ -14,15 +14,11 @@ class Auth extends BaseController
     }
 
     public function entrar(){
-        return view('feed');
+        return redirect()->to('/feed');
     }
 
     public function logout(){
         return view('index');
-    }
-
-    public function feed(){
-        return view('feed');
     }
 
     public function perfil(){

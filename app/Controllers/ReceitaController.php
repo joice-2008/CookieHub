@@ -130,4 +130,14 @@ class ReceitaController extends BaseController
        return ["ingredientes" => $ingredientesJson, "quantidades" => $quantidadesJson, "infos" => $infosJson]; 
 
     }
+
+    public function listar(){
+        $receitaModel = new ReceitaModel();
+        $dados = [
+            'receitas' => $receitaModel
+                ->orderBy('idReceita', 'DESC')
+                ->findAll()
+        ];
+        return view('feed', $dados);
+    }
 }
