@@ -72,7 +72,7 @@ class ReceitaController extends BaseController
         ];
 
         if($model->insert($dadosReceita)){
-            return redirect()->to(base_url('receita/listar'))->with('sucesso', 'Receita cadastrada com sucesso!');
+            return redirect()->to(base_url('receitaSalva'))->with('sucesso', 'Receita cadastrada com sucesso!');
         }
         return redirect()->back()->withInput()->with('erro', 'Erro ao cadastrar a receita.');
 

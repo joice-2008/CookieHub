@@ -29,6 +29,10 @@ class Auth extends BaseController
         return view('visualizarCadUsuario');
     }
 
+    public function receitaSalva(){
+        return view('visualizarCadUsuario');
+    }
+
 }
 
 
