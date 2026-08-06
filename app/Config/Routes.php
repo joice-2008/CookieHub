@@ -27,6 +27,8 @@ $routes->get('/receita/cadastrar', 'ReceitaController::create');
 
 $routes->post('/receita/salvar', 'ReceitaController::salvar');
 
+$routes->get('visualizarCadUsuario', 'ReceitaController::visualizarCadUsuario');
+
 $routes->get('logout', 'Auth::logout');
 
 $routes->get('feed', 'Auth::feed');
