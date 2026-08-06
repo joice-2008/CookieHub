@@ -1,0 +1,140 @@
+.container-feed {
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.topo-feed {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+
+.busca-receitas {
+    width: 360px;
+    height: 42px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 0 18px;
+    font-size: 14px;
+    background-color: white;
+}
+
+.busca-receitas:focus {
+    outline: none;
+    border-color: #b85c00;
+}
+
+
+.feed-receitas{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 28px;
+    margin-top: 30px;
+}
+
+.card-receita{
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+    transition: .25s;
+    cursor: pointer;
+}
+
+.card-receita:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+.imagem{
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #f3f3f3;
+}
+
+.imagem img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.conteudo-receita{
+    padding: 18px;
+}
+
+.conteudo-receita h2{
+    margin: 0;
+    font-size: 22px;
+    color: #3d2417;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.usuario{
+    margin-top: 10px;
+    color: #8a8a8a;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.tag{
+    background: #f6ede6;
+    color: #9a4d14;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+@media (max-width: 499px) {
+
+.feed-receitas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 24px; 
+}
+
+.card-receita {
+    width: 100%;
+    border-radius: 16px;
+}
+
+.imagem {
+    height: 220px;
+}
+
+.conteudo-receita {
+    padding: 16px;
+}
+
+.conteudo-receita h2 {
+    font-size: 20px;
+}
+
+.tags {
+    margin-top: 12px;
+}
+
+.tag {
+    font-size: 12px;
+}
+
+
+}
+ 

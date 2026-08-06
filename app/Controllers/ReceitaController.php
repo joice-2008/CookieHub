@@ -133,23 +133,69 @@ class ReceitaController extends BaseController
 
     public function listar(){
         $receitaModel = new ReceitaModel();
-        $dados = [
-            'receitas' => $receitaModel
-                ->orderBy('idReceita', 'DESC')
-                ->findAll()
-        ];
-        return view('feed', $dados);
+        $tagModel = new TagModel();
+
+        $receitas = $receitaModel
+            ->select('receita.*, usuario.nomeCompleto AS nomeUsuario')
+            ->join('usuario', 'usuario.idUsuario = receita.idUsuario')
+            ->orderBy('receita.idReceita', 'DESC')
+            ->findAll();
+
+        foreach ($receitas as &$receita) {
+
+            $idsTags = json_decode($receita['tags'], true);
+
+            if (!empty($idsTags)) {
+                $tags = $tagModel
+                    ->whereIn('idTag', $idsTags)
+                    ->findAll();
+
+                $receita['nomesTags'] = array_column($tags, 'nome');
+            } else {
+                $receita['nomesTags'] = [];
+            }
+        }
+
+        return view('feed', [
+            'receitas' => $receitas
+        ]);
     }
 
     public function listarReceitaUsuario(){
         $receitaModel = new ReceitaModel();
+        $tagModel = new TagModel();
+
         $idUsuario = session()->get('idUsuario');
-        $dados = [
-            'receitas' => $receitaModel
-                ->where('idUsuario', $idUsuario)
-                ->orderBy('idReceita', 'DESC')
-                ->findAll()
-        ];
-        return view('visualizarCadUsuario', $dados);
+
+        $receitas = $receitaModel
+            ->select('receita.*, usuario.nomeCompleto AS nomeUsuario')
+            ->join('usuario', 'usuario.idUsuario = receita.idUsuario')
+            ->where('receita.idUsuario', $idUsuario)
+            ->orderBy('receita.idReceita', 'DESC')
+            ->findAll();
+
+
+        foreach ($receitas as &$receita) {
+
+            $idsTags = json_decode($receita['tags'], true);
+
+            if (!empty($idsTags)) {
+
+                $tags = $tagModel
+                    ->whereIn('idTag', $idsTags)
+                    ->findAll();
+
+                $receita['nomesTags'] = array_column($tags, 'nome');
+
+            } else {
+
+                $receita['nomesTags'] = [];
+
+            }
+        }
+
+        return view('visualizarCadUsuario', [
+            'receitas' => $receitas
+        ]);
     }
 }
