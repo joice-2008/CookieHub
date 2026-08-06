@@ -140,4 +140,16 @@ class ReceitaController extends BaseController
         ];
         return view('feed', $dados);
     }
+
+    public function listarReceitaUsuario(){
+        $receitaModel = new ReceitaModel();
+        $idUsuario = session()->get('idUsuario');
+        $dados = [
+            'receitas' => $receitaModel
+                ->where('idUsuario', $idUsuario)
+                ->orderBy('idReceita', 'DESC')
+                ->findAll()
+        ];
+        return view('visualizarCadUsuario', $dados);
+    }
 }

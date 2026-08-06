@@ -21,14 +21,6 @@ class Auth extends BaseController
         return view('index');
     }
 
-    public function perfil(){
-        return view('visualizarCadUsuario');
-    }
-
-    public function receitaSalva(){
-        return view('visualizarCadUsuario');
-    }
-
 }
 
 

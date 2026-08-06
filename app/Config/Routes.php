@@ -29,8 +29,8 @@ $routes->post('/receita/salvar', 'ReceitaController::salvar');
 
 $routes->get('logout', 'Auth::logout');
 
-$routes->get('perfil', 'Auth::perfil');
-
-$routes->get('receitaSalva', 'Auth::receitaSalva');
+$routes->get('receitaSalva', 'ReceitaController::listarReceitaUsuario');
 
 $routes->get('feed', 'ReceitaController::listar');
+
+$routes->get('perfil', 'ReceitaController::listarReceitaUsuario');
