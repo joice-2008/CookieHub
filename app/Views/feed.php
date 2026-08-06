@@ -9,7 +9,17 @@
 </head>
 <body>
     <?= $this->include('menu') ?>
-    <h1>feed</h1>
+    <div>
+        <p>Feed de receitas</p>
+        <input type="text" name="receita" id="receita">
+    </div>
+
+    <?php foreach($receitas as $receita): ?>
+
+    <h2><?= $receita['titulo'] ?></h2>
+    <p><?= $receita['legenda'] ?></p>
+
+    <?php endforeach; ?>
 
 
     <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">

@@ -31,9 +31,8 @@ $routes->get('visualizarCadUsuario', 'ReceitaController::visualizarCadUsuario');
 
 $routes->get('logout', 'Auth::logout');
 
-$routes->get('feed', 'Auth::feed');
+$routes->get('receitaSalva', 'ReceitaController::listarReceitaUsuario');
 
-$routes->get('perfil', 'Auth::perfil');
+$routes->get('feed', 'ReceitaController::listar');
 
-$routes->get('receitaSalva', 'Auth::receitaSalva');
-
+$routes->get('perfil', 'ReceitaController::listarReceitaUsuario');

@@ -11,6 +11,15 @@
     <h1>Cadastro Usuario</h1>
 
 
+    <?php foreach($receitas as $receita): ?>
+
+    <h2><?= $receita['titulo'] ?></h2>
+    <p><?= $receita['legenda'] ?></p>
+
+<?php endforeach; ?>
+
+
+
     <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
