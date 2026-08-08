@@ -1,0 +1,13 @@
+.imagem-atual {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.imagem-atual img {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+}

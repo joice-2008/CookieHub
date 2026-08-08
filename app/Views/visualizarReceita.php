@@ -30,6 +30,14 @@
 
     <div class="pagina-receita">
 
+        <?php if ($receita['idUsuario'] == session()->get('idUsuario')): ?>
+            <div class="botao-editar-container">
+                <a href="<?= base_url('receita/editar/' . $receita['idReceita']) ?> "class="botao-editar">
+                    Editar receita
+                </a>
+            </div>
+        <?php endif; ?>
+
         <h1>
             <?= esc($receita['titulo']) ?>
         </h1>
@@ -38,6 +46,8 @@
             Publicado por:
             <?= esc($receita['nomeUsuario']) ?>
         </p>
+
+        
 
 
         <div class="tags">

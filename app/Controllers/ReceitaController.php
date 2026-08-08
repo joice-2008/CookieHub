@@ -273,5 +273,66 @@ class ReceitaController extends BaseController
         'totalCarboidratos' => $totalCarboidratos,
         'totalGorduras' => $totalGorduras
     ]);
-}
+    }
+
+    public function editar($idReceita)
+    {
+        dd($idReceita);
+
+        $receitaModel = new ReceitaModel();
+        $tagModel = new TagModel();
+
+        $receita = $receitaModel
+            ->where('idReceita', $idReceita)
+            ->first();
+
+        if (!$receita) {
+            return redirect()->back();
+        }
+
+        // Verifica se a receita pertence ao usuário logado
+        if ($receita['idUsuario'] != session()->get('idUsuario')) {
+            return redirect()->back();
+        }
+
+        // Ingredientes
+        $receita['ingredientes'] = json_decode(
+            $receita['ingredientes'] ?? '',
+            true
+        );
+
+        if (!is_array($receita['ingredientes'])) {
+            $receita['ingredientes'] = [];
+        }
+
+        // Quantidades
+        $receita['quantidadeIngredientes'] = json_decode(
+            $receita['quantidadeIngredientes'] ?? '',
+            true
+        );
+
+        if (!is_array($receita['quantidadeIngredientes'])) {
+            $receita['quantidadeIngredientes'] = [];
+        }
+
+        // Tags
+        $idsTags = json_decode(
+            $receita['tags'] ?? '',
+            true
+        );
+
+        if (!is_array($idsTags)) {
+            $idsTags = [];
+        }
+
+        $tags = $tagModel->findAll();
+
+        
+
+        return view('editarReceita', [
+            'receita' => $receita,
+            'tags' => $tags,
+            'idsTags' => $idsTags
+        ]);
+    }
 }
