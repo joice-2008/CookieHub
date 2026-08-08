@@ -4,20 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CookieHub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?= base_url('css/menu.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/feed.css') ?>">
 </head>
 <body>
     <?= $this->include('menu') ?>
-    <h1>Cadastro Usuario</h1>
 
+    <div class="container-feed">
+        
 
-    <?php foreach($receitas as $receita): ?>
+    <div class="feed-receitas">
 
-    <h2><?= $receita['titulo'] ?></h2>
-    <p><?= $receita['legenda'] ?></p>
+        <?php foreach($receitas as $receita): ?>
 
-<?php endforeach; ?>
-
+            <div class="card-receita">
+                <div class="imagem">
+                    <img src="<?= base_url('uploads/' . $receita['imagem']) ?>"
+                    alt="<?= esc($receita['titulo']) ?>">
+                </div>
+                <div class="conteudo-receita">
+                    <h2><?= $receita['titulo'] ?></h2>
+                    <div class="usuario">
+                        <?= $receita['nomeUsuario'] ?>
+                    </div>
+                    <div class="tags">
+                        <?php foreach ($receita['nomesTags'] as $tag): ?>
+                            <span class="tag"><?= esc($tag) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </div>
 
 
     <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">

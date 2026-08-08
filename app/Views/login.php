@@ -39,10 +39,6 @@
                 </div>
             </div>
  
-            <div class="opcoes">
-                <a href="" class="esqueceuSenha">Esqueci minha senha</a>
-            </div>
- 
             <div>
                 <input type="submit" value="Entrar" id="botao">
             </div>

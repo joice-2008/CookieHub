@@ -125,23 +125,6 @@ label {
     height: 20px;
 }
  
-.opcoes {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-}
- 
-.esqueceuSenha {
-    color: #5b271e;
-    font-weight: 600;
-    text-decoration: none;
-}
- 
-.esqueceuSenha:hover {
-    text-decoration: underline;
-}
- 
 #botao {
     width: 100%;
     padding: 14px;
