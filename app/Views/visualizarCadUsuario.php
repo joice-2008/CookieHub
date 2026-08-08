@@ -13,9 +13,39 @@
     <?= $this->include('menu') ?>
 
     <div class="container-feed">
+
+        <div class="dados-usuario">
+
+        <h1 class="mensagem-perfil">
+        Bem-vindo(a) ao seu perfil <?= esc($nomeUsuario) ?>!
+        </h1><br>
+
+        <h2>@<?= esc($loginUsuario) ?></h2><br>
+
+        <div class="quantidade-receitas">
+        <h3>🍪 <?= count($receitas) ?> <?= count($receitas) == 1 ? 'receita cadastrada' : 'receitas cadastradas' ?></h3>
+        <br>
+        </div>
+
+    </div>
+
+    <h2 class="titulo-receitas">Minhas Receitas</h2>
         
 
     <div class="feed-receitas">
+            <?php if (empty($receitas)): ?>
+
+        <div class="sem-receitas">
+
+            <h3>Você ainda não cadastrou nenhuma receita.</h3>
+
+            <p>
+                Suas receitas aparecerão aqui quando você cadastrar uma.
+            </p>
+
+        </div>
+
+    <?php else: ?>
 
         <?php foreach($receitas as $receita): ?>
 
@@ -37,6 +67,7 @@
                 </div>
             </div>
         <?php endforeach; ?>
+        <?php endif; ?>
         </div>
     </div>
 

@@ -195,7 +195,10 @@ class ReceitaController extends BaseController
         }
 
         return view('visualizarCadUsuario', [
-            'receitas' => $receitas
+            'receitas' => $receitas,    
+            'nomeUsuario' => session()->get('nomeUsuario'),
+            'loginUsuario' => session()->get('loginUsuario')
         ]);
     }
+    
 }
