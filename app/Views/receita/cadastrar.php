@@ -5,302 +5,328 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="<?= base_url('css/menu.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/cadastroReceita.css') ?>">
 </head>
 <body>
     <?= $this->include('menu') ?>
 
 
-    <h1>Cadastrar Receita</h1>
+    <div class="cadastro-container">
 
-    <form action="<?= base_url('receita/salvar') ?>" method="post" enctype="multipart/form-data">
-
-        <div>
-            <label>Título</label><br>
-            <input type="text" name="titulo" required>
+        <div class="cabecalho-cadastro">
+            <h1>Cadastrar receita</h1>
+            <p>Compartilhe sua nova receita no CookieHub!</p>
         </div>
 
-        <br>
+        <form action="<?= base_url('receita/salvar') ?>" method="post" enctype="multipart/form-data" class="form-receita">
 
-        <div>
-            <label>Imagem</label><br>
-            <input type="file" name="imagem" accept="image/*">
-        </div>
+            <section class="secao-form">
 
-        <br>
+                <h2>Informações da receita</h2>
 
-        <hr>
+                <div class="campo">
+                    <label for="titulo">Título da receita</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ex: Bolo de cenoura com cobertura" required>
+                </div>
 
-        <h3>Ingredientes adicionados</h3>
+                <div class="campo">
+                    <label for="imagem">Imagem da receita</label>
 
-    <label>Pesquisar ingrediente</label>
+                    <div class="upload-imagem">
+                        <div>
+                            <strong>Escolha uma imagem</strong>
+                            <small>PNG, JPG ou JPEG</small>
+                        </div>
+                        <input type="file" id="imagem" name="imagem" accept="image/*">
+                    </div>
+                </div>
 
-    <input
-        type="text"
-        id="pesquisaIngrediente">
+            </section>
 
-    <button
-        type="button"
-        id="btnPesquisar">
+            <section class="secao-form">
 
-    Pesquisar
+                <h2>Ingredientes</h2>
 
-    </button>
+                <p class="descricao-secao">
+                    Pesquise os ingredientes e informe a quantidade utilizada.
+                </p>
 
-    <br><br>
+                <div class="pesquisa-ingrediente">
 
-    <div id="resultadoPesquisa"></div>
+                    <div class="campo campo-pesquisa">
+                        <label for="pesquisaIngrediente">
+                            Pesquisar ingrediente
+                        </label>
 
-    <hr>
+                        <input
+                            type="text"
+                            id="pesquisaIngrediente"
+                            placeholder="Digite o nome do ingrediente...">
+                    </div>
 
-    <p id="ingredienteSelecionadoTexto">
-    Nenhum ingrediente selecionado.
-    </p>
+                    <button
+                        type="button"
+                        id="btnPesquisar"
+                        class="btn-principal btn-pesquisar">
+                        Pesquisar
+                    </button>
 
-    <label>Quantidade (g)</label>
+                </div>
 
-    <input
-        type="number"
-        id="quantidade">
-
-    <button
-        type="button"
-        id="btnAdicionar">
-
-    Adicionar
-
-    </button>
-
-    <br><br>
+                <div id="resultadoPesquisa" class="resultado-pesquisa"></div>
 
 
-        <table border="1" width="100%" id="tabelaIngredientes">
-            <thead>
-                <tr>
-                    <th>Ingrediente</th>
-                    <th>Quantidade (g)</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
+                <div class="ingrediente-selecionado">
 
-            <tbody id="listaIngredientes">
+                    <p id="ingredienteSelecionadoTexto">
+                        Nenhum ingrediente selecionado.
+                    </p>
 
-            </tbody>
-        </table>
+                    <div class="adicionar-ingrediente">
 
-        <div id="inputsOcultos"></div>
+                        <div class="campo">
+                            <label for="quantidade">
+                                Quantidade (g)
+                            </label>
 
-        <br>
+                            <input
+                                type="number"
+                                id="quantidade"
+                                min="1"
+                                placeholder="Ex: 200">
+                        </div>
 
-        <label>Modo de preparo</label><br>
+                        <button
+                            type="button"
+                            id="btnAdicionar"
+                            class="btn-adicionar">
+                            + Adicionar
+                        </button>
 
-        <textarea
-            name="legenda"
-            rows="8"
-            cols="70"
-            placeholder="Descreva o modo de preparo..."></textarea>
+                    </div>
 
-        <br><br>
-    <h3>Tags</h3>
+                </div>
 
-    <?php foreach ($tags as $tag): ?>
 
-        <label>
-            <input
-                type="checkbox"
-                name="tags[]"
-                value="<?= $tag['idTag']; ?>">
+                <div class="tabela-container">
 
-            <?= esc($tag['nome']); ?>
-        </label>
+                    <table id="tabelaIngredientes">
 
-        <br>
+                        <thead>
+                            <tr>
+                                <th>Ingrediente</th>
+                                <th>Quantidade</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
 
-    <?php endforeach; ?>
+                        <tbody id="listaIngredientes"></tbody>
 
-    <br>
+                    </table>
 
-    <button type="submit">
-        Salvar Receita
-    </button>
+                </div>
 
-    </form>
+                <div id="inputsOcultos"></div>
+
+            </section>
+
+
+            <section class="secao-form">
+
+                <h2>Modo de preparo</h2>
+
+                <div class="campo">
+
+                    <label for="legenda">
+                        Como preparar?
+                    </label>
+
+                    <textarea
+                        name="legenda"
+                        id="legenda"
+                        rows="8"
+                        placeholder="Descreva passo a passo como preparar sua receita..."></textarea>
+
+                </div>
+
+            </section>
+
+            <section class="secao-form">
+
+                <h2>Categorias</h2>
+
+                <p class="descricao-secao">
+                    Selecione as categorias que combinam com sua receita.
+                </p>
+
+                <div class="lista-tags">
+
+                    <?php foreach ($tags as $tag): ?>
+
+                        <label class="tag-checkbox">
+
+                            <input
+                                type="checkbox"
+                                name="tags[]"
+                                value="<?= $tag['idTag']; ?>">
+
+                            <span>
+                                <?= esc($tag['nome']); ?>
+                            </span>
+
+                        </label>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            </section>
+
+            <div class="acoes-form">
+                <button type="submit" class="btn-salvar">
+                    Salvar receita
+                </button>
+            </div>
+
+        </form>
+    </div>
 
 
 
     <script>
+        let ingredientes = [];
+        let ingredienteSelecionado = null;
+        let resultadosPesquisa = [];
 
-    let ingredientes = [];
-    let ingredienteSelecionado = null;
-    let resultadosPesquisa = [];
+        const btnAdicionar = document.getElementById("btnAdicionar");
+        const btnPesquisar = document.getElementById("btnPesquisar");
+        const txtPesquisa = document.getElementById("pesquisaIngrediente");
+        const txtQuantidade = document.getElementById("quantidade");
+        const divResultados = document.getElementById("resultadoPesquisa");
+        const textoSelecionado = document.getElementById("ingredienteSelecionadoTexto");
+        const tabela = document.getElementById("listaIngredientes");
+        const inputsOcultos = document.getElementById("inputsOcultos");
 
-    const btnAdicionar = document.getElementById("btnAdicionar");
-    const btnPesquisar = document.getElementById("btnPesquisar");
-    const txtPesquisa = document.getElementById("pesquisaIngrediente");
-    const txtQuantidade = document.getElementById("quantidade");
-    const divResultados = document.getElementById("resultadoPesquisa");
-    const textoSelecionado = document.getElementById("ingredienteSelecionadoTexto");
-    const tabela = document.getElementById("listaIngredientes");
-    const inputsOcultos = document.getElementById("inputsOcultos");
-
-    btnPesquisar.addEventListener("click", pesquisarIngrediente);
-    btnAdicionar.addEventListener("click", adicionarIngrediente);
-   
-
-    async function pesquisarIngrediente(){
-        const pesquisa = document.getElementById("pesquisaIngrediente").value;
-
-        if(pesquisa == ""){
-        alert("Digite um ingrediente.");
-        return;
+        btnPesquisar.addEventListener("click", pesquisarIngrediente);
+        btnAdicionar.addEventListener("click", adicionarIngrediente);
+    
+        async function pesquisarIngrediente(){
+            const pesquisa = document.getElementById("pesquisaIngrediente").value;
+            if(pesquisa == ""){
+                alert("Digite um ingrediente.");
+                return;
+            }
+            const resposta = await fetch("<?= base_url('api/pesquisar/') ?>" + pesquisa);
+            const resultados = await resposta.json();
+            resultadosPesquisa = resultados;
+            mostrarResultadosPesquisa(resultados);
         }
 
-        const resposta = await fetch("<?= base_url('api/pesquisar/') ?>" + pesquisa);
-         
-        const resultados = await resposta.json();
-
-        resultadosPesquisa = resultados;
-
-        mostrarResultadosPesquisa(resultados);
-        
-    }
-
-    function mostrarResultadosPesquisa(resultados){
-        divResultados.innerHTML = "";
-
-        if(resultados.length == 0){
-        divResultados.innerHTML = "<p>Nenhum ingrediente encontrado.</p>";
-        return;
-        }
-
-        resultados.forEach(function(item){
-            divResultados.innerHTML += `
-            <div style="margin-bottom:10px;">
-                ${item.nome}
-                <button type="button" onclick="selecionarIngrediente(${item.id})"> Selecionar </button>
-            </div>
-            `;
-        });
-
-    }
-
-    async function selecionarIngrediente(id){
-        ingredienteSelecionado = resultadosPesquisa.find(function(item){
-            return item.id == id;
-        });
-
-        const resposta = await fetch(
-            "<?= base_url('api/informacoes/') ?>" +
-            ingredienteSelecionado.id
-        );
-
-        const dadosNutricionais = await resposta.json();
-
-        ingredienteSelecionado.calorias = dadosNutricionais.calorias;
-        ingredienteSelecionado.proteinas = dadosNutricionais.proteinas;
-        ingredienteSelecionado.carboidratos =  dadosNutricionais.carboidratos;
-        ingredienteSelecionado.gorduras = dadosNutricionais.gorduras;
-
-        document.getElementById("ingredienteSelecionadoTexto").innerHTML = "<strong>Ingrediente:</strong> "+ ingredienteSelecionado.nome +"<br><small>"+ ingredienteSelecionado.calorias +" kcal por 100 g</small>";
-
-        document.getElementById("resultadoPesquisa").innerHTML = "";
-
-    }
-
-
-    function adicionarIngrediente(){
-        const quantidade = document.getElementById("quantidade").value;
-
-        if(ingredienteSelecionado == null){
-            alert("Selecione um ingrediente.");
+        function mostrarResultadosPesquisa(resultados){
+            divResultados.innerHTML = "";
+            if(resultados.length == 0){
+            divResultados.innerHTML = "<p>Nenhum ingrediente encontrado.</p>";
             return;
+            }
+
+            resultados.forEach(function(item){
+                divResultados.innerHTML += `
+                <div style="margin-bottom:10px;">
+                    ${item.nome}
+                    <button type="button" onclick="selecionarIngrediente(${item.id})"> Selecionar </button>
+                </div>
+                `;
+            });
         }
 
-        if(quantidade == ""){
-            alert("Informe a quantidade.");
-            return;
+        async function selecionarIngrediente(id){
+            ingredienteSelecionado = resultadosPesquisa.find(function(item){
+                return item.id == id;
+            });
+            const resposta = await fetch(
+                "<?= base_url('api/informacoes/') ?>" +
+                ingredienteSelecionado.id
+            );
+            const dadosNutricionais = await resposta.json();
+            ingredienteSelecionado.calorias = dadosNutricionais.calorias;
+            ingredienteSelecionado.proteinas = dadosNutricionais.proteinas;
+            ingredienteSelecionado.carboidratos =  dadosNutricionais.carboidratos;
+            ingredienteSelecionado.gorduras = dadosNutricionais.gorduras;
+            document.getElementById("ingredienteSelecionadoTexto").innerHTML = "<strong>Ingrediente:</strong> "+ ingredienteSelecionado.nome +"<br><small>"+ ingredienteSelecionado.calorias +" kcal por 100 g</small>";
+            document.getElementById("resultadoPesquisa").innerHTML = "";
         }
 
 
-        ingredientes.push({
+        function adicionarIngrediente(){
+            const quantidade = document.getElementById("quantidade").value;
+            if(ingredienteSelecionado == null){
+                alert("Selecione um ingrediente.");
+                return;
+            }
+            if(quantidade == ""){
+                alert("Informe a quantidade.");
+                return;
+            }
 
-            idApi: ingredienteSelecionado.id,
+            ingredientes.push({
+                idApi: ingredienteSelecionado.id,
+                nome: ingredienteSelecionado.nome,
+                imagem: ingredienteSelecionado.imagem,
+                quantidade: quantidade,
+                calorias: ingredienteSelecionado.calorias,
+                carboidratos: ingredienteSelecionado.carboidratos,
+                proteinas: ingredienteSelecionado.proteinas,
+                gorduras: ingredienteSelecionado.gorduras
+            });
 
-            nome: ingredienteSelecionado.nome,
+            atualizarTela();
+            document.getElementById("quantidade").value = "";
+            ingredienteSelecionado = null;
+            document.getElementById("ingredienteSelecionadoTexto").innerHTML ="Nenhum ingrediente selecionado.";
+            document.getElementById("pesquisaIngrediente").value = "";
+        }
 
-            imagem: ingredienteSelecionado.imagem,
+        function atualizarTela(){
+            atualizarTabelaIngredientes();
+            atualizarInputsOcultos();
+        }
 
-            quantidade: quantidade,
+        function atualizarTabelaIngredientes(){
+            tabela.innerHTML = "";
+            ingredientes.forEach(function(item, indice){
+                tabela.innerHTML += `
+                    <tr>
+                        <td>${item.nome}</td>
+                        <td>${item.quantidade} g</td>
+                        <td>
+                            <button type="button" onclick="removerIngrediente(${indice})"> Remover</button>
+                        </td>
+                    </tr>
+                `;
+            });
 
-            calorias: ingredienteSelecionado.calorias,
+        }
 
-            carboidratos: ingredienteSelecionado.carboidratos,
-
-            proteinas: ingredienteSelecionado.proteinas,
-
-            gorduras: ingredienteSelecionado.gorduras
-
-        });
-
-        atualizarTela();
-
-        document.getElementById("quantidade").value = "";
-
-        ingredienteSelecionado = null;
-
-        document.getElementById("ingredienteSelecionadoTexto").innerHTML ="Nenhum ingrediente selecionado.";
-
-        document.getElementById("pesquisaIngrediente").value = "";
-
-    }
-
-    function atualizarTela(){
-
-        atualizarTabelaIngredientes();
-        atualizarInputsOcultos();
-
-    }
-
-    function atualizarTabelaIngredientes(){
-        tabela.innerHTML = "";
+        function atualizarInputsOcultos(){
+        inputsOcultos.innerHTML = "";
         ingredientes.forEach(function(item, indice){
-
-            tabela.innerHTML += `
-                <tr>
-                    <td>${item.nome}</td>
-                    <td>${item.quantidade} g</td>
-                    <td>
-                        <button type="button" onclick="removerIngrediente(${indice})"> Remover</button>
-                    </td>
-                </tr>
+            inputsOcultos.innerHTML += `
+                <input type="hidden" name="ingredientes[${indice}][idApi]" value="${item.idApi}">
+                <input type="hidden" name="ingredientes[${indice}][nome]" value="${item.nome}">
+                <input type="hidden" name="ingredientes[${indice}][quantidade]" value="${item.quantidade}">
+                <input type="hidden" name="ingredientes[${indice}][calorias]" value="${item.calorias}">
+                <input type="hidden" name="ingredientes[${indice}][proteinas]" value="${item.proteinas}">
+                <input type="hidden" name="ingredientes[${indice}][carboidratos]" value="${item.carboidratos}">
+                <input type="hidden" name="ingredientes[${indice}][gorduras]" value="${item.gorduras}">
             `;
         });
 
-    }
-
-    function atualizarInputsOcultos(){
-
-    inputsOcultos.innerHTML = "";
-
-    ingredientes.forEach(function(item, indice){
-
-        inputsOcultos.innerHTML += `
-            <input type="hidden" name="ingredientes[${indice}][idApi]" value="${item.idApi}">
-            <input type="hidden" name="ingredientes[${indice}][nome]" value="${item.nome}">
-            <input type="hidden" name="ingredientes[${indice}][quantidade]" value="${item.quantidade}">
-            <input type="hidden" name="ingredientes[${indice}][calorias]" value="${item.calorias}">
-            <input type="hidden" name="ingredientes[${indice}][proteinas]" value="${item.proteinas}">
-            <input type="hidden" name="ingredientes[${indice}][carboidratos]" value="${item.carboidratos}">
-            <input type="hidden" name="ingredientes[${indice}][gorduras]" value="${item.gorduras}">
-        `;
-
-    });
-
-    }
-
-    function removerIngrediente(indice){
-        ingredientes.splice(indice,1);
-        atualizarTela();
-    }
+        }
+        function removerIngrediente(indice){
+            ingredientes.splice(indice,1);
+            atualizarTela();
+        }
 
     </script>
 
