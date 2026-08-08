@@ -233,7 +233,7 @@
             resultados.forEach(function(item){
                 divResultados.innerHTML += `
                 <div style="margin-bottom:10px;">
-                    ${item.nome}
+                    ${item.nome.charAt(0).toUpperCase() + item.nome.slice(1)}
                     <button type="button" onclick="selecionarIngrediente(${item.id})"> Selecionar </button>
                 </div>
                 `;
@@ -253,7 +253,10 @@
             ingredienteSelecionado.proteinas = dadosNutricionais.proteinas;
             ingredienteSelecionado.carboidratos =  dadosNutricionais.carboidratos;
             ingredienteSelecionado.gorduras = dadosNutricionais.gorduras;
-            document.getElementById("ingredienteSelecionadoTexto").innerHTML = "<strong>Ingrediente:</strong> "+ ingredienteSelecionado.nome +"<br><small>"+ ingredienteSelecionado.calorias +" kcal por 100 g</small>";
+
+            const nomeIngrediente = ingredienteSelecionado.nome.charAt(0).toUpperCase() + ingredienteSelecionado.nome.slice(1);
+            document.getElementById("ingredienteSelecionadoTexto").innerHTML = "<strong>Ingrediente:</strong> " + nomeIngrediente + "<br><small>" + ingredienteSelecionado.calorias + " kcal por 100 g</small>";
+
             document.getElementById("resultadoPesquisa").innerHTML = "";
         }
 

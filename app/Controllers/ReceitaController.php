@@ -200,5 +200,78 @@ class ReceitaController extends BaseController
             'loginUsuario' => session()->get('loginUsuario')
         ]);
     }
-    
+    public function visualizarReceita($idReceita){
+    $receitaModel = new ReceitaModel();
+    $tagModel = new TagModel();
+
+    $receita = $receitaModel
+        ->select('receita.*, usuario.nomeCompleto AS nomeUsuario')
+        ->join('usuario', 'usuario.idUsuario = receita.idUsuario')
+        ->where('receita.idReceita', $idReceita)
+        ->first();
+
+    if (!$receita) {
+        return redirect()->to(base_url('receita'));
+    }
+
+    $idsTags = json_decode($receita['tags'] ?? '', true);
+
+    if (!is_array($idsTags)) {$idsTags = [];}
+
+    if (!empty($idsTags)) {
+
+        $tags = $tagModel
+            ->whereIn('idTag', $idsTags)
+            ->findAll();
+
+        $receita['nomesTags'] = array_column($tags, 'nome');
+
+    } else {
+
+        $receita['nomesTags'] = [];
+
+    }
+
+    $receita['ingredientes'] = json_decode($receita['ingredientes'] ?? '',true);
+
+    if (!is_array($receita['ingredientes'])) {$receita['ingredientes'] = [];}
+
+    $receita['quantidadeIngredientes'] = json_decode($receita['quantidadeIngredientes'] ?? '',true);
+
+    if (!is_array($receita['quantidadeIngredientes'])) {$receita['quantidadeIngredientes'] = [];}
+
+    $receita['infosNutricionais'] = json_decode($receita['infosNutricionais'] ?? '',true);
+
+    if (!is_array($receita['infosNutricionais'])) {$receita['infosNutricionais'] = [];}
+
+        $totalCalorias = 0;
+        $totalProteinas = 0;
+        $totalCarboidratos = 0;
+        $totalGorduras = 0;
+
+        if (is_array($receita['infosNutricionais'])) {
+
+            foreach ($receita['infosNutricionais'] as $info) {
+
+                if (!is_array($info)) {
+                    continue;
+                }
+
+                $totalCalorias += (float) ($info['calorias'] ?? 0);
+                $totalProteinas += (float) ($info['proteinas'] ?? 0);
+                $totalCarboidratos += (float) ($info['carboidratos'] ?? 0);
+                $totalGorduras += (float) ($info['gorduras'] ?? 0);
+
+            }
+
+        }
+
+    return view('visualizarReceita', [
+        'receita' => $receita,
+        'totalCalorias' => $totalCalorias,
+        'totalProteinas' => $totalProteinas,
+        'totalCarboidratos' => $totalCarboidratos,
+        'totalGorduras' => $totalGorduras
+    ]);
+}
 }

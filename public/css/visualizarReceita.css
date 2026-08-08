@@ -1,0 +1,122 @@
+.pagina-receita {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+.pagina-receita h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.pagina-receita p {
+    color: #666;
+}
+
+.pagina-receita section {
+    margin-top: 40px;
+}
+
+.pagina-receita h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.imagem-receita {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin: 30px auto;
+}
+
+.pagina-receita .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.pagina-receita .tags span {
+    background-color: #f6ede6;
+    color: #9a4d14;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.pagina-receita pre {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.lista-ingredientes {
+    max-width: 700px;
+    border-top: 1px solid #ddd;
+}
+
+.ingrediente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.nome-ingrediente {
+    font-weight: 500;
+}
+
+.quantidade-ingrediente {
+    color: #777;
+}
+
+.secao-nutricional {
+    margin-bottom: 50px;
+}
+
+.nutrientes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 700px;
+}
+
+.nutriente {
+    background-color: #f8f5f1;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.nutriente strong {
+    display: block;
+    font-size: 20px;
+    color: #3d2417;
+}
+
+.nutriente span {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+    .nutrientes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+.sem-informacoes {
+    color: #777;
+    background-color: #f8f5f1;
+    padding: 15px 20px;
+    border-radius: 10px;
+    max-width: 700px;
+}

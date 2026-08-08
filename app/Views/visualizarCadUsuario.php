@@ -49,6 +49,8 @@
 
         <?php foreach($receitas as $receita): ?>
 
+            <a href="<?= base_url('receita/visualizar/' . $receita['idReceita']) ?>" class="link-receita">
+
             <div class="card-receita">
                 <div class="imagem">
                     <img src="<?= base_url('uploads/' . $receita['imagem']) ?>"
@@ -66,6 +68,7 @@
                     </div>
                 </div>
             </div>
+            </a>
         <?php endforeach; ?>
         <?php endif; ?>
         </div>
