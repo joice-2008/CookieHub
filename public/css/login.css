@@ -179,6 +179,19 @@ label {
     text-align: center;
 }
 
+.mensagem {
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+.mensagem.sucesso {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #b7d9b9;
+}
+
 @media (max-width: 499px) {
     .container {
         padding: 30px 24px;

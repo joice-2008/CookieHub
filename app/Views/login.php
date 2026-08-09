@@ -15,6 +15,13 @@
             </svg>
             Voltar
         </a>
+        <?php if (session()->getFlashdata('sucesso')): ?>
+
+            <div class="mensagem sucesso">
+                <?= session()->getFlashdata('sucesso') ?>
+            </div>
+
+        <?php endif; ?>
  
         <div>
             <p class="titulo">Faça login</p>

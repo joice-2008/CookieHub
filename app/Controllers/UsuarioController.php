@@ -15,7 +15,7 @@ class UsuarioController extends BaseController{
             if(!$usuarioRepetido){
                 $dados = ['login' => $login,'nomeCompleto' => $nomeCompleto, 'senha' => password_hash($senha, PASSWORD_DEFAULT)];
                 $modelUsuario->insert($dados);
-                session()->set('usuarioCadastrado', true);
+               session()->setFlashdata('sucesso', 'Cadastro realizado com sucesso!');
                 return redirect()->to('/login');
             }else{
                 session()->setFlashdata('nomeRepetido', 'O nome de usuário já foi registrado em outro cadastro.');
