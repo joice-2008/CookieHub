@@ -22,52 +22,54 @@
     <div class="pagina-receita">
 
         <?php if ($receita['idUsuario'] == session()->get('idUsuario')): ?>
-            <div class="botao-editar-container">
-                <a href="<?= base_url('receita/editar/' . $receita['idReceita']) ?> "class="botao-editar">
-                    Editar receita
-                </a>
+            <div class="acoes-receita">
+                <a href="<?= base_url('receita/editar/' . $receita['idReceita']) ?>" class="botao-editar">Editar receita</a>
+                <button type="button" class="botao-excluir" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir receita</button>
             </div>
+
         <?php endif; ?>
 
-        <h1>
-            <?= esc($receita['titulo']) ?>
-        </h1>
+        <div class="cabecalho-receita">
 
-        <p>
-            Publicado por:
-            <?= esc($receita['nomeUsuario']) ?>
-        </p>
-        <p class="data-receita">
-            <?= date('d/m/Y', strtotime($receita['data'])) ?>
-        </p>
+            <div class="informacoes-receita">
 
-        
+                <h1>
+                    <?= esc($receita['titulo']) ?>
+                </h1>
 
-        
+                <p>
+                    Publicado por:
+                    <?= esc($receita['nomeUsuario']) ?>
+                </p>
+                <p class="data-receita">
+                    <?= date('d/m/Y', strtotime($receita['data'])) ?>
+                </p>
 
+                <div class="tags">
 
-        <div class="tags">
+                    <?php foreach ($receita['nomesTags'] as $tag): ?>
 
-            <?php foreach ($receita['nomesTags'] as $tag): ?>
+                        <span>
+                            <?= esc($tag) ?>
+                        </span>
 
-                <span>
-                    <?= esc($tag) ?>
-                </span>
+                    <?php endforeach; ?>
 
-            <?php endforeach; ?>
+                </div>
+
+            </div>
+
+            <?php if (!empty($receita['imagem'])): ?>
+
+                <img
+                    src="<?= base_url('uploads/' . $receita['imagem']) ?>"
+                    alt="<?= esc($receita['titulo']) ?>"
+                    class="imagem-receita"
+                >
+
+            <?php endif; ?>
 
         </div>
-
-
-        <?php if (!empty($receita['imagem'])): ?>
-
-            <img
-                src="<?= base_url('uploads/' . $receita['imagem']) ?>"
-                alt="<?= esc($receita['titulo']) ?>"
-                class="imagem-receita"
-            >
-
-        <?php endif; ?>
 
 
         <section class="secao-ingredientes">
@@ -193,6 +195,36 @@
                         Sair
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalExcluir" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir receita</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza de que deseja excluir esta receita?
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <a href=""
+                    class="btn btn-danger">
+                        Excluir
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

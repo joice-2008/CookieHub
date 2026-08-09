@@ -23,7 +23,7 @@
         <h2>@<?= esc($loginUsuario) ?></h2><br>
 
         <div class="quantidade-receitas">
-        <h3>🍪 <?= count($receitas) ?> <?= count($receitas) == 1 ? 'receita cadastrada' : 'receitas cadastradas' ?></h3>
+        <h3><?= count($receitas) ?> <?= count($receitas) == 1 ? 'receita cadastrada' : 'receitas cadastradas' ?></h3>
         <br>
         </div>
 
