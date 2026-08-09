@@ -11,6 +11,13 @@
 
     <?= $this->include('menu') ?>
 
+    <?php if (session()->getFlashdata('sucesso')): ?>
+
+        <div class="mensagem sucesso">
+            <?= session()->getFlashdata('sucesso') ?>
+        </div>
+
+    <?php endif; ?>
 
     <div class="pagina-receita">
 
@@ -164,6 +171,30 @@
 
         </section>
 
+    </div>
+
+    
+
+    <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLogoutLabel">Confirmar saída</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza de que deseja sair da sua conta?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <a href="<?= site_url('logout') ?>" class="btn btn-danger">
+                        Sair
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

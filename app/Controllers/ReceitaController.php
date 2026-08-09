@@ -18,15 +18,12 @@ class ReceitaController extends BaseController
 
 
     public function salvar(){
-        dd($this->request->getPost());
         if(!session()->get('usuarioLogado')){
             return redirect()->to('/login');
         }
         $model = new \App\Models\ReceitaModel();  
 
-        if(!session()->get('usuarioLogado')){
-            return redirect()->to('/login');
-        }
+        
 
         $titulo = $this->request->getPost("titulo");
         $legenda = $this->request->getPost("legenda");
@@ -43,7 +40,7 @@ class ReceitaController extends BaseController
         }
 
         if(empty($tags)){
-            return redirect()->back()->with("erro","Selecione pelo menos uma tag.");
+            return redirect()->back()->with("erro","Selecione pelo menos uma categoria.");
         }
 
         $nomeImagem = "";
@@ -72,7 +69,11 @@ class ReceitaController extends BaseController
         ];
 
         if($model->insert($dadosReceita)){
-            return redirect()->to(base_url('receitaSalva'))->with('sucesso', 'Receita cadastrada com sucesso!');
+            $idReceita = $model->getInsertID();
+
+        return redirect()
+            ->to(base_url('receita/visualizar/' . $idReceita))
+            ->with('sucesso', 'Receita cadastrada com sucesso!');
         }
         return redirect()->back()->withInput()->with('erro', 'Erro ao cadastrar a receita.');
 

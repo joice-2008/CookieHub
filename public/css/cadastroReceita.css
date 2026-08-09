@@ -386,8 +386,21 @@
     transform: translateY(-2px);
 }
 
+.mensagem {
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    margin-left: 200px;
+    margin-right: 200px;
+}
 
-
+.mensagem.erro {
+    background-color: #fbe9e7;
+    color: #b23b2d;
+    border: 1px solid #f0c5bf;
+}
 
 @media (max-width: 600px) {
 
@@ -430,5 +443,8 @@
         width: 100%;
     }
 
-
+    .mensagem{
+        margin-left: 25px;
+        margin-right: 25px;
+    }
 }

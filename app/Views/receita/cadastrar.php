@@ -11,7 +11,14 @@
 <body>
     <?= $this->include('menu') ?>
 
+    <?php if (session()->getFlashdata('erro')): ?>
 
+        <div class="mensagem erro">
+            <?= session()->getFlashdata('erro') ?>
+        </div>
+
+    <?php endif; ?>
+    
     <div class="cadastro-container">
 
         <div class="cabecalho-cadastro">
@@ -146,7 +153,7 @@
                         name="legenda"
                         id="legenda"
                         rows="8"
-                        placeholder="Descreva passo a passo como preparar sua receita..."></textarea>
+                        placeholder="Descreva passo a passo como preparar sua receita..." required></textarea>
 
                 </div>
 
@@ -332,6 +339,8 @@
         }
 
     </script>
+
+    
 
 
     <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">
