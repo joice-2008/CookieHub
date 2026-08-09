@@ -61,6 +61,9 @@
                     <div class="usuario">
                         <?= $receita['nomeUsuario'] ?>
                     </div>
+                    <div class="data">
+                        <?= date('d/m/Y', strtotime($receita['data'])) ?>
+                    </div>
                     <div class="tags">
                         <?php foreach ($receita['nomesTags'] as $tag): ?>
                             <span class="tag"><?= esc($tag) ?></span>

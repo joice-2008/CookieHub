@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CookieHub</title>
     <link rel="stylesheet" href="<?= base_url('css/menu.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/cadastroReceita.css') ?>">
 </head>

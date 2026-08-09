@@ -1,28 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        <?= esc($receita['titulo']) ?> - CookieHub
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="<?= base_url('css/menu.css') ?>"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookieHub</title>
+    <link rel="stylesheet" href="<?= base_url('css/menu.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/visualizarReceita.css') ?>">
-
 </head>
-
 <body>
 
     <?= $this->include('menu') ?>
@@ -46,6 +30,11 @@
             Publicado por:
             <?= esc($receita['nomeUsuario']) ?>
         </p>
+        <p class="data-receita">
+            <?= date('d/m/Y', strtotime($receita['data'])) ?>
+        </p>
+
+        
 
         
 

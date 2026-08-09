@@ -104,7 +104,12 @@
     color: #777;
     font-size: 14px;
 }
-
+.data {
+    font-size: 13px;
+    color: #888;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
 @media (max-width: 600px) {
 
     .nutrientes {
