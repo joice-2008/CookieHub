@@ -331,15 +331,12 @@ class ReceitaController extends BaseController
         ]);
     }
 
-    public function atualizar($idReceita)
-{
+    public function atualizar($idReceita){
     if (!session()->get('usuarioLogado')) {
         return redirect()->to('/login');
     }
 
     $receitaModel = new ReceitaModel();
-
-    // Busca a receita
     $receita = $receitaModel->find($idReceita);
 
     if (!$receita) {
@@ -347,20 +344,17 @@ class ReceitaController extends BaseController
             ->with('erro', 'Receita não encontrada.');
     }
 
-    // Verifica se a receita pertence ao usuário logado
     if ($receita['idUsuario'] != session()->get('idUsuario')) {
         return redirect()->back()
             ->with('erro', 'Você não pode editar esta receita.');
     }
 
-    // Dados enviados pelo formulário
     $titulo = $this->request->getPost('titulo');
     $legenda = $this->request->getPost('legenda');
     $tags = $this->request->getPost('tags') ?? [];
     $ingredientes = $this->request->getPost('ingredientes') ?? [];
 
 
-    // Validações
     if (empty($titulo)) {
         return redirect()->back()
             ->withInput()
@@ -376,15 +370,8 @@ class ReceitaController extends BaseController
     if (empty($tags)) {
         return redirect()->back()
             ->withInput()
-            ->with('erro', 'Selecione pelo menos uma tag.');
+            ->with('erro', 'Selecione pelo menos uma categoria.');
     }
-
-
-    /*
-     * ==========================================================
-     * RECUPERA OS DADOS NUTRICIONAIS ANTIGOS
-     * ==========================================================
-     */
 
     $infosAntigas = json_decode(
         $receita['infosNutricionais'] ?? '{}',
@@ -394,20 +381,11 @@ class ReceitaController extends BaseController
     if (!is_array($infosAntigas)) {
         $infosAntigas = [];
     }
-
-    // Os ingredientes antigos ficam dentro de "ingredientes"
     $ingredientesAntigos = $infosAntigas['ingredientes'] ?? [];
 
     if (!is_array($ingredientesAntigos)) {
         $ingredientesAntigos = [];
     }
-
-
-    /*
-     * ==========================================================
-     * MONTA OS NOVOS DADOS
-     * ==========================================================
-     */
 
     $nomesIngredientes = [];
     $quantidades = [];
@@ -422,10 +400,6 @@ class ReceitaController extends BaseController
         $nomesIngredientes[] = $nome;
         $quantidades[] = $quantidadeNova;
 
-
-        /*
-         * Dados nutricionais enviados pelo formulário.
-         */
         $idApi = $ingrediente['idApi'] ?? null;
 
         $calorias = (float) ($ingrediente['calorias'] ?? 0);
@@ -433,10 +407,6 @@ class ReceitaController extends BaseController
         $carboidratos = (float) ($ingrediente['carboidratos'] ?? 0);
         $gorduras = (float) ($ingrediente['gorduras'] ?? 0);
 
-
-        /*
-         * Procura o ingrediente antigo pelo nome.
-         */
         $ingredienteAntigo = null;
 
         foreach ($ingredientesAntigos as $antigo) {
@@ -449,12 +419,6 @@ class ReceitaController extends BaseController
                 break;
             }
         }
-
-
-        /*
-         * Se o formulário não enviou informações nutricionais,
-         * utiliza as informações que já estavam salvas.
-         */
         if (
             $calorias == 0 &&
             $proteinas == 0 &&
@@ -466,12 +430,6 @@ class ReceitaController extends BaseController
             $quantidadeAntiga = (float) (
                 $ingredienteAntigo['quantidade'] ?? 0
             );
-
-
-            /*
-             * Se a quantidade antiga existir,
-             * recalcula proporcionalmente.
-             */
             if ($quantidadeAntiga > 0) {
 
                 $fator = $quantidadeNova / $quantidadeAntiga;
@@ -498,10 +456,7 @@ class ReceitaController extends BaseController
 
             } else {
 
-                /*
-                 * Caso não exista quantidade antiga,
-                 * mantém os valores anteriores.
-                 */
+             
                 $calorias = (float) (
                     $ingredienteAntigo['calorias'] ?? 0
                 );
@@ -524,9 +479,6 @@ class ReceitaController extends BaseController
         }
 
 
-        /*
-         * Salva as informações do ingrediente.
-         */
         $infosNutricionais[] = [
             'idApi' => $idApi,
             'nome' => $nome,
@@ -539,11 +491,6 @@ class ReceitaController extends BaseController
     }
 
 
-    /*
-     * ==========================================================
-     * CALCULA OS TOTAIS
-     * ==========================================================
-     */
 
     $totalCalorias = 0;
     $totalProteinas = 0;
@@ -559,10 +506,6 @@ class ReceitaController extends BaseController
         $totalGorduras += (float) ($info['gorduras'] ?? 0);
     }
 
-
-    /*
-     * Mantém o mesmo formato utilizado no cadastro.
-     */
     $infosParaSalvar = [
         'total' => [
             'calorias' => round($totalCalorias, 2),
@@ -573,13 +516,6 @@ class ReceitaController extends BaseController
 
         'ingredientes' => $infosNutricionais
     ];
-
-
-    /*
-     * ==========================================================
-     * IMAGEM
-     * ==========================================================
-     */
 
     $nomeImagem = $receita['imagem'];
 
@@ -594,8 +530,6 @@ class ReceitaController extends BaseController
             $nomeImagem
         );
 
-
-        // Remove a imagem antiga
         if (!empty($receita['imagem'])) {
 
             $imagemAntiga = ROOTPATH .
@@ -608,13 +542,6 @@ class ReceitaController extends BaseController
         }
     }
 
-
-    /*
-     * ==========================================================
-     * DADOS PARA ATUALIZAÇÃO
-     * ==========================================================
-     */
-
     $dados = [
         'titulo' => $titulo,
         'legenda' => $legenda,
@@ -624,13 +551,6 @@ class ReceitaController extends BaseController
         'quantidadeIngredientes' => json_encode($quantidades),
         'infosNutricionais' => json_encode($infosParaSalvar)
     ];
-
-
-    /*
-     * ==========================================================
-     * ATUALIZA NO BANCO
-     * ==========================================================
-     */
 
     if ($receitaModel->update($idReceita, $dados)) {
 
