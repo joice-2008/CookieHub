@@ -13,9 +13,16 @@
     <?= $this->include('menu') ?>
 
 
+    <?php if (session()->getFlashdata('erro')): ?>
+                <div class="mensagem erro">
+                    <?= session()->getFlashdata('erro') ?>
+                </div>
+            <?php endif; ?>
+            
     <div class="cadastro-container">
 
         <div class="cabecalho-cadastro">
+            
 
             <h1>Editar receita</h1>
 
@@ -34,7 +41,6 @@
         >
 
 
-            <!-- TÍTULO -->
 
             <section class="secao-form">
 
@@ -113,7 +119,6 @@
             </section>
 
 
-            <!-- INGREDIENTES -->
 
             <section class="secao-form">
 
@@ -124,7 +129,6 @@
                 </p>
 
 
-                <!-- Pesquisa -->
 
                 <div class="pesquisa-ingrediente">
 
@@ -672,9 +676,6 @@
             "<strong>Nenhum ingrediente selecionado.</strong>";
 
     }
-    8. Remover
-
-    Por último:
 
     function removerIngrediente(indice) {
 

@@ -27,10 +27,7 @@
         <br>
         </div>
 
-    </div>
-
-    <h2 class="titulo-receitas">Minhas Receitas</h2>
-        
+    </div>        
 
     <div class="feed-receitas">
             <?php if (empty($receitas)): ?>

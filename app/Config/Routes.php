@@ -40,3 +40,5 @@ $routes->get('receita/visualizar/(:num)', 'ReceitaController::visualizar/$1');
 $routes->get('feed', 'ReceitaController::listar');
 
 $routes->get('perfil', 'ReceitaController::listarReceitaUsuario');
+
+$routes->post('receita/atualizar/(:num)', 'ReceitaController::atualizar/$1');
