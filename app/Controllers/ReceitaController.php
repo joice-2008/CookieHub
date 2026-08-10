@@ -572,4 +572,39 @@ class ReceitaController extends BaseController
         );
 }
 
+    public function excluir($idReceita)
+    {
+        $receitaModel = new ReceitaModel();
+
+        $receita = $receitaModel
+            ->where('idReceita', $idReceita)
+            ->first();
+
+        if (!$receita) {
+            return redirect()->back();
+        }
+
+
+        if ($receita['idUsuario'] != session()->get('idUsuario')) {
+            return redirect()->back();
+        }
+
+        if (!empty($receita['imagem'])) {
+
+            $caminhoImagem = FCPATH . 'uploads/' . $receita['imagem'];
+
+            if (file_exists($caminhoImagem)) {
+                unlink($caminhoImagem);
+            }
+        }
+
+
+        $receitaModel->delete($idReceita);
+
+
+        return redirect()->to(
+            base_url('visualizarCadUsuario')
+        );
+    }
+
 }

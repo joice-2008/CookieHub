@@ -31,7 +31,9 @@ $routes->get('receita/visualizar/(:num)', 'ReceitaController::visualizarReceita/
 
 $routes->get('receita/editar/(:num)', 'ReceitaController::editar/$1');
 
-$routes->get('visualizarCadUsuario', 'ReceitaController::visualizarCadUsuario');
+$routes->get('receita/excluir/(:num)', 'ReceitaController::excluir/$1');
+
+$routes->get('visualizarCadUsuario', 'ReceitaController::listarReceitaUsuario');
 
 $routes->get('logout', 'Auth::logout');
 

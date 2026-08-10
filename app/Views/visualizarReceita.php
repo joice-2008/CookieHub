@@ -219,7 +219,7 @@
                             data-bs-dismiss="modal">
                         Cancelar
                     </button>
-                    <a href=""
+                    <a href="<?= base_url('receita/excluir/' . $receita['idReceita']) ?>"
                     class="btn btn-danger">
                         Excluir
                     </a>
