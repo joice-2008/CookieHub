@@ -1,17 +1,139 @@
+.dados-usuario {
+    background: #FFFDFA;
+    border: 1px solid #EFE8DA;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0 auto 40px;
+    width: 100%;
+}
+ 
+.cabecalho-perfil {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+}
+ 
+.avatar-perfil {
+    width: 80px;
+    height: 80px;
+    min-width: 56px;
+    border-radius: 50%;
+    background: #fccca7;
+    color: #633806;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+ 
+.info-perfil {
+    flex: 1;
+    min-width: 0;
+}
+ 
+.linha-nome {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+ 
+.mensagem-perfil {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: #4A2318;
+    text-align: left;
+}
+ 
+.username-perfil {
+    font-size: 15px;
+    font-weight: 400;
+    color: #8A7E6C;
+    margin: 10px 0 0;
+    text-align: left;
+}
+ 
+ 
+.quantidade-receitas {
+    display: inline-block;
+    margin-top: 10px;
+    background: #FAEEDA;
+    color: #854F0B;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+ 
 .container-feed {
     max-width: 1050px;
     margin: 40px auto;
     padding: 0 20px;
 }
-
-.feed-receitas{
+ 
+.topo-feed {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+ 
+.busca-receitas {
+    width: 360px;
+    height: 42px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 0 18px;
+    font-size: 14px;
+    background-color: white;
+}
+ 
+.busca-receitas:focus {
+    outline: none;
+    border-color: #b85c00;
+}
+ 
+.sem-receitas {
+    width: 100%;
+    padding: 50px 20px;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+ 
+.sem-receitas h3 {
+    margin-bottom: 10px;
+}
+ 
+.sem-receitas p {
+    color: #777;
+}
+ 
+.login-usuario {
+    margin: 5px 0 20px;
+    color: #777;
+    font-size: 16px;
+}
+ 
+.titulo-receitas {
+    margin-bottom: 25px;
+}
+ 
+.link-receita {
+    text-decoration: none;
+    color: inherit;
+}
+ 
+.feed-receitas {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 28px;
     margin-top: 30px;
 }
-
-.card-receita{
+ 
+.card-receita {
     background: #fff;
     border-radius: 18px;
     overflow: hidden;
@@ -19,39 +141,39 @@
     transition: .25s;
     cursor: pointer;
 }
-
-.card-receita:hover{
+ 
+.card-receita:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0,0,0,.15);
 }
-
-.imagem{
+ 
+.imagem {
     width: 100%;
     height: 180px;
     overflow: hidden;
     background: #f3f3f3;
 }
-
-.imagem img{
+ 
+.imagem img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
-
-.conteudo-receita{
+ 
+.conteudo-receita {
     padding: 18px;
 }
-
-.conteudo-receita h2{
+ 
+.conteudo-receita h2 {
     margin: 0;
     font-size: 22px;
     color: #3d2417;
     font-weight: 700;
     line-height: 1.3;
 }
-
-.usuario{
+ 
+.usuario {
     margin-top: 10px;
     color: #8a8a8a;
     font-size: 15px;
@@ -59,15 +181,15 @@
     align-items: center;
     gap: 8px;
 }
-
-.tags{
+ 
+.tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 18px;
 }
-
-.tag{
+ 
+.tag {
     background: #f6ede6;
     color: #9a4d14;
     padding: 6px 12px;
@@ -75,41 +197,67 @@
     font-size: 13px;
     font-weight: 600;
 }
-
+ 
+.data {
+    font-size: 13px;
+    color: #888;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+ 
 @media (max-width: 499px) {
-
-.feed-receitas {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 0 24px; 
-}
-
-.card-receita {
-    width: 100%;
-    border-radius: 16px;
-}
-
-.imagem {
-    height: 220px;
-}
-
-.conteudo-receita {
-    padding: 16px;
-}
-
-.conteudo-receita h2 {
-    font-size: 20px;
-}
-
-.tags {
-    margin-top: 12px;
-}
-
-.tag {
-    font-size: 12px;
-}
-
-
+ 
+    .feed-receitas {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 24px;
+    }
+ 
+    .card-receita {
+        width: 100%;
+        border-radius: 16px;
+    }
+ 
+    .imagem {
+        height: 220px;
+    }
+ 
+    .conteudo-receita {
+        padding: 16px;
+    }
+ 
+    .conteudo-receita h2 {
+        font-size: 20px;
+    }
+ 
+    .tags {
+        margin-top: 12px;
+    }
+ 
+    .tag {
+        font-size: 12px;
+    }
+ 
+    .dados-usuario {
+        max-width: 100%;
+    }
+ 
+    .cabecalho-perfil {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+ 
+    .linha-nome {
+        flex-direction: column;
+        align-items: center;
+    }
+ 
+    .mensagem-perfil,
+    .username-perfil {
+        text-align: center;
+    }
+ 
 }
  
